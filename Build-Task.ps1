@@ -104,6 +104,7 @@ try {
 
     $null = New-Item -Path $PackageTemp -ItemType Directory -Force
     Write-Verbose -Message "ResolvedTaskRoot: $ResolvedTaskRoot"
+    Write-Verbose -Message "ReleaseTaskRoot: $ReleaseTaskRoot "
     Write-Verbose -Message "ConfigPath: $ConfigPath"
 
     if (!$ConfigPath) {
@@ -122,7 +123,7 @@ try {
         $Config.Include | Select-Object -Property Path -Unique | ForEach-Object {
             if ($_.Path) {
                 Write-Host " - $($_.Path)"
-                Get-ChildItem -Path "$($ResolvedTaskRoot)/$($_.Path)" -Recurse | Remove-Item -Recurse -Force
+                Get-ChildItem -Path "$($ReleaseTaskRoot)/$($_.Path)" -Recurse | Remove-Item -Recurse -Force
             }
         }
 
@@ -227,7 +228,7 @@ try {
     }
 
     if ($Build.IsPresent) {
-        & tfx extension create --manifest-globs "$ReleaseTaskRoot/vss-extension.json" --output-path "$PSScriptRoot/Release/bin"
+        & tfx extension create --root $ReleaseTaskRoot --manifest-globs "$ReleaseTaskRoot/vss-extension.json" --output-path "$PSScriptRoot/Release/bin"
     }
 
     if ($Publish.IsPresent) {
@@ -241,4 +242,3 @@ finally {
     Write-Verbose -Message "Cleaning temp directory $PackageTemp"
     Remove-Item -Path $PackageTemp -Recurse -Force
 }
-

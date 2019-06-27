@@ -1,15 +1,6 @@
 {
   "include": [
     {
-      "type": "Local",
-      "name": "Handlers",
-      "copy":[
-        "Task/Handlers"
-      ],
-      "path": "Task/ps_modules"
-
-    },
-    {
       "type": "PSGallery",
       "name": "VstsTaskSdk",
       "version": "0.11.0",

@@ -43,7 +43,8 @@ function Import-CustomModules {
                 Write-Verbose -Message "Importing Module $($_.Name)"
                 Import-Module -Name $_.FullName -Global -Force
             }
-        } else {
+        }
+        else {
             # --- TODO: No excuse for this.. make it better..
             Import-Module "$PSScriptRoot\ps_modules\Handlers" -Global -Force
         }

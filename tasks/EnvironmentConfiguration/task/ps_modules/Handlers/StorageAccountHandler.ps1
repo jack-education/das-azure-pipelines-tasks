@@ -15,10 +15,9 @@ function Get-StorageAccountKey {
         $StorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $StorageAccount.ResourceGroupName -Name $Name)[0].Value
 
         Write-Output $StorageAccountKey
-
     }
     catch {
-        throw $PSCmdlet.ThrowTerminatingError($_)
+        Write-Error -Message "Failed to retrieve key from $($Name): $_" -ErrorAction Stop
     }
     finally {
         Trace-VstsLeavingInvocation $MyInvocation
@@ -53,8 +52,10 @@ function Set-TableStorageEntity {
         $StorageAccountKey = Get-StorageAccountKey -Name $StorageAccount
         $StorageContext = New-AzStorageContext -StorageAccountName $StorageAccount -StorageAccountKey $StorageAccountKey
 
-        $StorageTable = Get-AzStorageTable -Context $StorageContext -Name $TableName
+        Write-Verbose -Message "Searching for storage table $TableName"
+        $StorageTable = Get-AzStorageTable -Context $StorageContext -Name $TableName -ErrorAction SilentlyContinue
         if (!$StorageTable){
+            Write-Verbose -Message "Creating a new resource table $TableName."
             $StorageTable = New-AzStorageTable -Context $StorageContext -Name $TableName
         }
 
@@ -73,7 +74,7 @@ function Set-TableStorageEntity {
         }
     }
     catch {
-        throw $PSCmdlet.ThrowTerminatingError($_)
+        Write-Error -Message "Could not add configuration entity to $($StorageAccount): $_" -ErrorAction Stop
     }
     finally {
         Trace-VstsLeavingInvocation $MyInvocation

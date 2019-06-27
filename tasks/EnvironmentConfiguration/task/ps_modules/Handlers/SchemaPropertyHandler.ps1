@@ -33,15 +33,15 @@ function Get-SchemaPropertyValue {
         }
 
         Write-Output $TaskVariable
-
     }
     catch {
-        throw "Could not get property from object [ $($PropertyObject.ExtensionData.Item("environmentVariable").Value) ] : $_"
+        Write-Error -Message "Could not get property from object [ $($PropertyObject.ExtensionData.Item('environmentVariable').Value) ] : $_" -ErrorAction Stop
     }
     finally {
         Trace-VstsEnteringInvocation $MyInvocation
     }
 }
+
 
 function Expand-SchemaProperty {
     [CmdletBinding()][OutputType("System.Collections.Hashtable")]
@@ -114,7 +114,7 @@ function Expand-SchemaProperty {
 
     }
     catch {
-        throw $PScmdlet.ThrowTerminatingError($_)
+        Write-Error -Message "Failed to expand schema property from object" -ErrorAction Stop
     }
     finally {
         Trace-VstsLeavingInvocation $MyInvocation

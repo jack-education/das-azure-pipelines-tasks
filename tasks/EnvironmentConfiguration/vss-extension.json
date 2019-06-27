@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "GenerateEnvironmentConfiguration",
   "name": "Generate Environment Configuration",
-  "version": "3.0.3",
+  "version": "3.0.8",
   "publisher": "esfadevops",
   "targets": [
     {

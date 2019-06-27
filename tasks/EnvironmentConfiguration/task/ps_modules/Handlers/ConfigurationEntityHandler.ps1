@@ -19,7 +19,7 @@ function Test-EnvironmentConfigurationEntity {
         Write-Host "Configuration validated!"
     }
     catch {
-        throw "Could not validate configuration against the provided schema: $($_.Exception.InnerException.Message)"
+        Write-Error -Message "Schema validation failed: $($_.Exception.InnerException.Message)" -ErrorAction Stop
     }
     finally {
         Trace-VstsLeavingInvocation $MyInvocation
@@ -59,7 +59,7 @@ function New-EnvironmentConfigurationEntity {
         }
     }
     catch {
-        throw $PSCmdlet.ThrowTerminatingError($_)
+        Write-Error -Message "Could not create configuration entity from schema: $_" -ErrorAction Stop
     }
     finally {
         Trace-VstsLeavingInvocation $MyInvocation

@@ -24,7 +24,7 @@ try {
 
         # --- Init
         $Endpoint = Get-VstsEndpoint -Name $ServiceEndpointName -Require
-        Initialize-AzModule -Endpoint $Endpoint -AzVersion 1.6.0
+        Initialize-AzModule -Endpoint $Endpoint
     }
 
     $NewEnvironmentConfigurationTableEntryParameters = @{
@@ -38,7 +38,7 @@ try {
     New-EnvironmentConfigurationTableEntry @NewEnvironmentConfigurationTableEntryParameters
 }
 catch {
-    Write-Error -Message "$_" -ErrorAction Stop
+    $PSCmdlet.ThrowTerminatingError($_)
 }
 finally {
     Trace-VstsLeavingInvocation $MyInvocation

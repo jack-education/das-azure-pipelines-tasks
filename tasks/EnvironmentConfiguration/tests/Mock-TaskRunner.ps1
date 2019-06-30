@@ -1,10 +1,18 @@
+$ENV:SYSTEM_CULTURE = "en_US"
 Import-Module -Name $PSScriptRoot/../task/ps_modules/VstsTaskSdk -Force
+Import-Module -Name $PSScriptRoot/modules/UnitTest.Helpers.psm1 -Force
 
-$SourcePath = "$PSScriptRoot/resource"
-$TargetFilename = "*.schema.json"
-$TableName = "configuration"
-$StorageAccount = "helloitscraigstr"
-$EnvironmentName = "dev"
+try {
 
+    Set-MockEnvironment
 
-. $PSScriptRoot/../task/Invoke-Task.ps1
+    $SourcePath = "$PSScriptRoot/resource"
+    $TargetFilename = "*.schema.json"
+    $TableName = "configuration"
+    $StorageAccount = "helloitscraigstr"
+    $EnvironmentName = "dev"
+    . $PSScriptRoot/../task/Invoke-Task.ps1
+    
+} finally {
+    Clear-MockEnvironment
+}

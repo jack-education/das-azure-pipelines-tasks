@@ -3,7 +3,7 @@
 try {
     Trace-VstsEnteringInvocation $MyInvocation
 
-    Import-Module -Name $PSScriptRoot\InitializationHelpers.psm1 -Force
+    Import-Module -Name $PSScriptRoot/InitializationHelpers.psm1 -Force
     Initialize-TaskDependencies -Verbose:$VerbosePreference
 
     if ($ENV:TF_BUILD) {
@@ -35,10 +35,10 @@ try {
         EnvironmentName = $EnvironmentName
     }
 
-    New-EnvironmentConfigurationTableEntry @NewEnvironmentConfigurationTableEntryParameters
+    New-ConfigurationTableEntry @NewEnvironmentConfigurationTableEntryParameters
 }
 catch {
-    $PSCmdlet.ThrowTerminatingError($_)
+    Write-Error -Message "$_" -ErrorAction Stop
 }
 finally {
     Trace-VstsLeavingInvocation $MyInvocation

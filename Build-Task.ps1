@@ -104,7 +104,7 @@ try {
 
     $null = New-Item -Path $PackageTemp -ItemType Directory -Force
     Write-Verbose -Message "ResolvedTaskRoot: $ResolvedTaskRoot"
-    Write-Verbose -Message "ReleaseTaskRoot: $ReleaseTaskRoot "
+    Write-Verbose -Message "ReleaseTaskRoot: $ReleaseTaskRoot"
     Write-Verbose -Message "ConfigPath: $ConfigPath"
 
     if (!$ConfigPath) {
@@ -186,11 +186,12 @@ try {
                     }
 
                     Write-Host "[NuGet] Installing package $($Package.Name) to $($PackageTemp)"
-                    $null = Install-Package @InstallPackageParameters
+                    $null = Install-Package @InstallPackageParameters -Source Nuget
 
                     if ($Package.Copy) {
+                        $null = New-Item -Path $ResolvedPackagePath -ItemType Directory -ErrorAction SilentlyContinue
                         $Package.Copy | ForEach-Object {
-                            Write-Host "[NuGet] Copying dependency $_ to $($Package.Path)"
+                            Write-Host "[NuGet] Copying dependency $_ to $ResolvedPackagePath"
                             Copy-Item -Path $PackageDestination/$_ -Destination $ResolvedPackagePath -Recurse -Force
                         }
                     }
@@ -206,7 +207,7 @@ try {
                     if ($Package.Copy) {
                         $Package.Copy | ForEach-Object {
                             Write-Host "[GitHub] Copying dependency $_ to $($Package.Path)"
-                            Copy-Item -Path $RepositoryDestination/$_ -Destination $ResolvedPackagePath -Recurse -Force
+                            Copy-Item -Path $RepositoryDestination/$_ -Destination $ResolvedPackagePath -Force
                         }
                     }
 

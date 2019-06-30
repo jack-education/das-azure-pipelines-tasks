@@ -8,6 +8,8 @@ function Set-MockEnvironment {
     $ENV:EventsApiBaseUrl = "https://events.test.com"
     $ENV:EventsApiClientToken = "xxxxxxxxxxlksmdflkm3lkmlkm"
     $ENV:PaymentsEnabled = "true"
+    $ENV:PaymentsBool = "true"
+    $ENV:PaymentsString = "string"
     $ENV:PaymentsInt = "1"
     $ENV:PaymentsNumber = "1.0"
     $ENV:PaymentsArray = "['one', 'two', 'three']"

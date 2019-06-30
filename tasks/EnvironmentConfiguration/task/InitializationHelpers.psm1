@@ -7,7 +7,6 @@ function Initialize-TaskDependencies {
             Write-Output $null
         }
 
-        Set-CustomAzModulePath -ErrorAction Stop
         Import-CustomLibraries -ErrorAction Stop
         Import-CustomModules -ErrorAction Stop
     }
@@ -25,7 +24,7 @@ function Import-CustomLibraries {
             Add-Type -Path $_.FullName
         }
         catch [System.Reflection.ReflectionTypeLoadException] {
-            throw $PSCmdlet.ThrowTerminatingError($_)
+            Write-Error -Message $_.Exception.Message -ErrorAction Stop
         }
     }
 }
@@ -52,26 +51,8 @@ function Import-CustomModules {
     }
     catch {
         # --- TODO: Create an error record handler that returns a custom record and replace $_
-        throw $PScmdlet.ThrowTerminatingError($_)
+        Write-Error -Message $_.Exception.Message -ErrorAction Stop
     }
-}
-
-function Set-CustomAzModulePath {
-    [CmdletBinding()]
-    Param()
-    try {
-
-        # --- On hosted vs 2017 agents, Az is not installed but located on the c:\ drive
-        # --- Ref: https://github.com/Microsoft/azure-pipelines-image-generation/blob/master/images/win/Vs2017-Server2016-Readme.md#az-powershell-modules
-        # --- Make this dynamic
-        $HostedAgentAzPath = "C:\Modules"
-        $env:PSModulePath = $HostedAgentAzPath + ";" + $env:PSModulePath
-        Write-Verbose -Message "PSModulePathUpdated to : $($env:PSModulePath)"
-    }
-    catch {
-        throw $PSCmdlet.ThrowTerminatingError($_)
-    }
-
 }
 
 Export-ModuleMember -Function @(

@@ -7,7 +7,7 @@
       "copy":[
         "0.11.0"
       ],
-      "path": "Task/ps_modules"
+      "path": "task/ps_modules"
 
     },
     {
@@ -17,7 +17,7 @@
       "copy":[
         "lib/netstandard1.0/*.dll"
       ],
-      "path": "Task/Lib"
+      "path": "task/lib"
     },
     {
       "type": "Nuget",
@@ -26,7 +26,7 @@
       "copy":[
         "lib/netstandard1.3/*.dll"
       ],
-      "path": "Task/Lib"
+      "path": "task/lib"
     },
     {
       "type": "GitHub",
@@ -36,7 +36,7 @@
         "Tasks/Common/TlsHelper_"
 
       ],
-      "path": "Task/ps_modules"
+      "path": "task/ps_modules"
     }
   ]
 }

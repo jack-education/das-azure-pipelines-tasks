@@ -1,0 +1,76 @@
+function Get-SchemaProperty {
+    [CmdletBinding(DefaultParameterSetName = "Standard")]
+    Param(
+        [Parameter(Mandatory = $true, ParameterSetName = "Standard")]
+        [Parameter(Mandatory = $true, ParameterSetName = "AsInt")]
+        [Parameter(Mandatory = $true, ParameterSetName = "AsNumber")]
+        [Parameter(Mandatory = $true, ParameterSetName = "AsArray")]
+        [Parameter(Mandatory = $true, ParameterSetName = "AsBool")]
+        $PropertyObject,
+        [Parameter(Mandatory = $false, ParameterSetName = "AsInt")]
+        [Switch]$AsInt,
+        [Parameter(Mandatory = $false, ParameterSetName = "AsNumber")]
+        [Switch]$AsNumber,
+        [Parameter(Mandatory = $false, ParameterSetName = "AsArray")]
+        [Switch]$AsArray,
+        [Parameter(Mandatory = $false, ParameterSetName = "AsBool")]
+        [Switch]$AsBool
+    )
+
+    try {
+
+        Trace-VstsEnteringInvocation $MyInvocation
+
+        if ($PropertyObject.ExtensionData.ContainsKey("environmentVariable")) {
+
+            $VariableName = $PropertyObject.ExtensionData.Item("environmentVariable").Value
+
+            switch ($PSCmdlet.ParameterSetName) {
+
+                'Standard' {
+                    $TaskVariable = Get-VstsTaskVariable -Name $VariableName
+                    break
+                }
+
+                'AsInt' {
+                    $TaskVariable = Get-VstsTaskVariable -Name $VariableName -AsInt
+                    break
+                }
+
+                'AsNumber' {
+                    $TaskVariable = [Decimal]::Parse((Get-VstsTaskVariable -Name $VariableName))
+                    break
+                }
+
+                'AsArray' {
+                    $ArrayString = Get-VstsTaskVariable -Name $VariableName
+                    $DeserializedObject = [Newtonsoft.Json.JsonConvert]::DeserializeObject($ArrayString)
+                    $TaskVariable = [System.Array]$DeserializedObject
+                    break
+                }
+
+                'AsBool' {
+                    $TaskVariable = Get-VstsTaskVariable -Name $VariableName -AsBool
+                    break
+                }
+
+            }
+        }
+
+        if (!$TaskVariable -and	$PropertyObject.Default.Value) {
+            $TaskVariable = $PropertyObject.Default.Value
+        }
+
+        if (!$TaskVariable) {
+            throw "No environment variable found and no default value set in schema"
+        }
+
+        Write-Output $TaskVariable
+    }
+    catch {
+        Write-Error -Message "Could not get property from object [ $VariableName ] : $_" -ErrorAction Stop
+    }
+    finally {
+        Trace-VstsEnteringInvocation $MyInvocation
+    }
+}

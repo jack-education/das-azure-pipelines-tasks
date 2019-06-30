@@ -26,6 +26,10 @@
       "type": "boolean",
       "environmentVariable": "PaymentsEnabled"
     },
+    "PaymentsBool": {
+      "type": "boolean",
+      "environmentVariable": "PaymentsBool"
+    },
     "PaymentsInt": {
       "type": "integer",
       "environmentVariable": "PaymentsInt"
@@ -37,6 +41,15 @@
     "PaymentsArray": {
       "type": "array",
       "environmentVariable": "PaymentsArray"
+    },
+    "PaymentsString": {
+      "type": "string",
+      "environmentVariable": "PaymentsString"
+    },
+    "PaymentsDefaultValue": {
+      "type": "string",
+      "default": "default-value",
+      "environmentVariable": "PaymentsDefaultValue"
     }
   },
   "additionalProperties": false,

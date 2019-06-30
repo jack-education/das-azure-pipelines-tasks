@@ -11,44 +11,43 @@ function Expand-Schema {
         Trace-VstsEnteringInvocation $MyInvocation
 
         $ProcessedProperties = @{ }
-
         foreach ($Key in $PropertyObject.Keys) {
 
             $Property = $PropertyObject.Item($Key)
             Switch ($Property.Type.ToString()) {
 
                 'Object' {
-                    Write-Host "    - Object property: $($Key)"
+                    Write-Host "    -> [Object]$($Key)"
                     $PropertyValue = Expand-Schema -PropertyObject $Property.Properties
                     break
                 }
 
                 'Array' {
-                    Write-Host "        - Property: [Array]$($Key)"
+                    Write-Host "    -> [Array]$($Key)"
                     $PropertyValue = Get-SchemaProperty -PropertyObject $Property -AsArray
                     break
                 }
 
                 'String' {
-                    Write-Host "        - property: [String]$($Key)"
+                    Write-Host "    -> [String]$($Key)"
                     $PropertyValue = Get-SchemaProperty -PropertyObject $Property
                     break
                 }
 
                 'Integer' {
-                    Write-Host "        - property: [Integer]$($Key)"
+                    Write-Host "    -> [Integer]$($Key)"
                     $PropertyValue = Get-SchemaProperty -PropertyObject $Property -AsInt
                     break
                 }
 
                 'Number' {
-                    Write-Host "        - property: [Number]$($Key)"
+                    Write-Host "    -> [Number]$($Key)"
                     $PropertyValue = Get-SchemaProperty -PropertyObject $Property -AsNumber
                     break
                 }
 
                 'Boolean' {
-                    Write-Host "        - property: [Bool]$($Key)"
+                    Write-Host "    -> [Bool]$($Key)"
                     $PropertyValue = Get-SchemaProperty -PropertyObject $Property -AsBool
                     break
                 }

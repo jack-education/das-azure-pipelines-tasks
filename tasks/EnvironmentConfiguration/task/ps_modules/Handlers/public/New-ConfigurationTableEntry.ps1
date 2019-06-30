@@ -39,7 +39,6 @@ function New-ConfigurationTableEntry {
             $Configuration = Build-ConfigurationEntity -SchemaDefinitionPath $Schema.FullName
             Test-ConfigurationEntity -Configuration $Configuration -SchemaDefinitionPath $Schema.FullName
 
-            Write-Host "Adding configuration to $StorageAccount/$TableName"
             $NewEntityParameters = @{
 
                 StorageAccount   = $StorageAccount
@@ -49,6 +48,8 @@ function New-ConfigurationTableEntry {
                 Configuration    = $Configuration
             }
             New-ConfigurationEntity @NewEntityParameters
+
+            Write-Host "Configuration succesfully added to $PartitionKey/$RowKey ✔"
         }
     }
     catch {

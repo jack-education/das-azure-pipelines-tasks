@@ -5,7 +5,7 @@
   "description": "Generate, validate and inject custom application configuration in to table storage.",
   "helpMarkDown": "",
   "category": "Utility",
-  "author": "Craig Gumbley",
+  "author": "esfadevops",
   "visibility": [
     "Release"
   ],

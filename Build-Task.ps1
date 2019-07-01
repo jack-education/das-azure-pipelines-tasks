@@ -111,7 +111,7 @@ try {
         throw "Could not find dependency.json at $ConfigPath"
     }
 
-    Write-Verbose -Message "Retrieving config deinition from $ConfigPath"
+    Write-Verbose -Message "Retrieving config definition from $ConfigPath"
     $Config = (Get-Content -Path $ConfigPath -Raw) | ConvertFrom-Json
 
     if ($Clean.IsPresent -and $SkipRestore.IsPresent){

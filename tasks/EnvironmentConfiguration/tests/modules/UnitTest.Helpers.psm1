@@ -77,6 +77,14 @@ function Add-DefaultMocks {
 
     Mock Write-Host {
     }
+
+    Mock Trace-VstsLeavingInvocation {
+
+    }
+
+    Mock Trace-VstsEnteringInvocation {
+
+    }
 }
 
 Export-ModuleMember -Function @(

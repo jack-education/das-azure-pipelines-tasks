@@ -33,6 +33,10 @@ InModuleScope "Handlers" {
             )
             return $MockKeysArray
         }
+
+        Mock New-AzStorageTable {
+            return @{ }
+        }
     
         Mock Get-AzStorageTable {
             return @{ }

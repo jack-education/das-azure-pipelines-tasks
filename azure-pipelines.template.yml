@@ -10,7 +10,7 @@ steps:
     failOnStderr: "false"
     workingDirectory:  $(System.DefaultWorkingDirectory)
   - powershell: |
-      ./$(System.DefaultWorkingDirectory)/release/${{ parameters.name }}/tests/Start-UnitTest.ps1
+      $(System.DefaultWorkingDirectory)/release/${{ parameters.name }}/tests/Start-UnitTest.ps1
     displayName: "Test"
     failOnStderr: "true"
     workingDirectory:  $(System.DefaultWorkingDirectory)    

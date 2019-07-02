@@ -44,7 +44,7 @@
     - git
     - tfx-cli
 #>
-[CmdletBinding()]
+[CmdletBinding(DefaultParameterSetName = "Build")]
 Param(
     [Parameter(Mandatory = $true)]
     [System.IO.FileInfo]$TaskRoot,

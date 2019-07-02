@@ -232,14 +232,6 @@ try {
             }
         }
     }
-
-    if ($Build.IsPresent -and !$ENV:TF_BUILD) {
-        & tfx extension create --root $ReleaseTaskRoot --manifest-globs "$ReleaseTaskRoot/vss-extension.json" --output-path "$PSScriptRoot/Release/bin"
-    }
-
-    if ($Publish.IsPresent -and !$ENV:TF_BUILD) {
-        & tfx extension publish --manifest-globs "$ReleaseTaskRoot/vss-extension.json" --auth-type pat --token $AccessToken --output-path "$PSScriptRoot/Release/bin"
-    }
 }
 catch {
     $PSCmdlet.ThrowTerminatingError($_)

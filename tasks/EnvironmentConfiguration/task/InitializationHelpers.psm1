@@ -39,7 +39,7 @@ function Import-CustomModules {
             Import-Module -Name "$PSScriptRoot\ps_modules\VstsTaskSdk\VstsTaskSdk.psd1" -Global
         }
 
-        if ($ENV:TF_BUILD) {
+        if ($ENV:TF_BUILD -and !$ENV:IsTest) {
             $null = Get-ChildItem -Path "$PSScriptRoot\ps_modules\" -Directory | Where-Object { $_.Name -ne "VstsTaskSdk" } | ForEach-Object {
                 Write-Verbose -Message "Importing Module $($_.Name)"
                 Import-Module -Name $_.FullName -Global -Force

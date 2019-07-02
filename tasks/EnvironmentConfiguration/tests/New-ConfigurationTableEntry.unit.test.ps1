@@ -10,6 +10,12 @@ InModuleScope "Handlers" {
             Clear-MockEnvironment
         }
 
+        Mock Trace-VstsLeavingInvocation {
+        }
+    
+        Mock Trace-VstsEnteringInvocation {
+        }
+
         $MockConfigurationEntity = Get-Content -Path "$PSScriptRoot/resource/SFA.DAS.Test.Valid.json" -Raw
         Mock Build-ConfigurationEntity {
             return $MockConfigurationEntity

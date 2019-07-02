@@ -1,8 +1,14 @@
-Import-Module -Name $PSScriptRoot/modules/UnitTest.Helpers.psm1 -Force
-Import-Module -Name $PSScriptRoot/../task/InitializationHelpers.psm1 -Force
-
+$ENV:SYSTEM_CULTURE = "en_US"
 $ErrorActionPreference = "Stop"
-$ENV:IsTest = $true
+$ENV:IsTest = $false
+
+Import-Module -Name $PSScriptRoot/../task/InitializationHelpers.psm1 -Force -Global
+
+# function Global:Trace-VstsLeavingInvocation {
+# }
+
+# function Global:Trace-VstsEnteringInvocation {
+# }
 
 Initialize-TaskDependencies
 

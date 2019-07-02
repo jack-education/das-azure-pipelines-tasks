@@ -1,6 +1,6 @@
 InModuleScope "Handlers" {
 
-    Describe "Expand-Schema tests" {
+    Describe "Get-SchemaProperty tests" {
 
         BeforeAll {
             Set-MockEnvironment
@@ -9,6 +9,12 @@ InModuleScope "Handlers" {
     
         AfterAll {
             Clear-MockEnvironment
+        }
+
+        Mock Trace-VstsLeavingInvocation {
+        }
+    
+        Mock Trace-VstsEnteringInvocation {
         }
 
         Mock Get-VstsTaskVariable { return "default-string" }
@@ -25,14 +31,14 @@ InModuleScope "Handlers" {
             It "Should return a string when no parameters are passed" {
 
                 $Property = Get-SchemaProperty -PropertyObject $SchemaObject.Properties["PaymentsString"]
-                $Property.GetType() | Should Be "String"
+                $Property | Should BeOfType [string]
                 Assert-MockCalled -CommandName Get-VstsTaskVariable -Times 1
             }
 
             It "Should return an int when -AsInt is passed" {
 
                 $Property = Get-SchemaProperty -PropertyObject $SchemaObject.Properties["PaymentsInt"] -AsInt
-                $Property.GetType() | Should Be "Int"
+                $Property | Should BeOfType [int]
                 Assert-MockCalled -CommandName Get-VstsTaskVariable -ParameterFilter { $AsInt -eq $true } -Times 1
             }
 
@@ -40,22 +46,22 @@ InModuleScope "Handlers" {
 
                 Mock Get-VstsTaskVariable { return "1.0" }
                 $Property = Get-SchemaProperty -PropertyObject $SchemaObject.Properties["PaymentsNumber"] -AsNumber
-                $Property.GetType() | Should Be "Decimal"
+                $Property | Should BeOfType [decimal]
                 Assert-MockCalled -CommandName Get-VstsTaskVariable -Times 1
             }
 
             It "Should return an array when -AsArray is passed" {
 
-                Mock Get-VstsTaskVariable { return (@("one","two", "three")| ConvertTo-Json) }
+                Mock Get-VstsTaskVariable { return "['one','two','three']" }
                 $Property = Get-SchemaProperty -PropertyObject $SchemaObject.Properties["PaymentsArray"] -AsArray
-                $Property.GetType().BaseType.Name | Should Be "Array"
+                $Property.GetType().BaseType.Name | Should Be 'Array'
                 Assert-MockCalled -CommandName Get-VstsTaskVariable -Times 1
             }
 
             It "Should return an bool when -AsBool is passed" {
 
                 $Property = Get-SchemaProperty -PropertyObject $SchemaObject.Properties["PaymentsBool"] -AsBool
-                $Property.GetType() | Should Be "Bool"
+                $Property | Should BeOfType [bool]
                 Assert-MockCalled -CommandName Get-VstsTaskVariable -ParameterFilter { $AsBool -eq $true } -Times 1
             }
 

@@ -1,3 +1,5 @@
+Import-Module -Name $PSScriptRoot/modules/UnitTest.Helpers.psm1 -Force -Global
+
 InModuleScope "Handlers" {
 
     Describe "Build-ConfigurationEntity tests" {

@@ -11,6 +11,12 @@ InModuleScope "Handlers" {
             Clear-MockEnvironment
         }
 
+        Mock Trace-VstsLeavingInvocation {
+        }
+    
+        Mock Trace-VstsEnteringInvocation {
+        }
+
         Mock Get-SchemaProperty {
             return "mock"
         }
@@ -31,8 +37,7 @@ InModuleScope "Handlers" {
             }
 
             It "Should return a hashtable" {
-                $ProcessedProperties = Expand-Schema -PropertyObject $SchemaObject.Properties
-                $ProcessedProperties.GetType() | Should Be "Hashtable"
+                Expand-Schema -PropertyObject $SchemaObject.Properties | Should BeOfType hashtable
             }
         }
     }    

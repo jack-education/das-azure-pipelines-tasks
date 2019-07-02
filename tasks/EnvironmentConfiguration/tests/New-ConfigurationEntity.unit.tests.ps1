@@ -12,6 +12,12 @@ InModuleScope "Handlers" {
             Clear-MockEnvironment
         }
 
+        Mock Trace-VstsLeavingInvocation {
+        }
+    
+        Mock Trace-VstsEnteringInvocation {
+        }
+
         $StorageAccount = "mock-storage-account"
         $TableName = "configuration"
         $PartitionKey = "mock-partition-key"

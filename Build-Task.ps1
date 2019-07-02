@@ -47,7 +47,7 @@
 [CmdletBinding(DefaultParameterSetName = "Build")]
 Param(
     [Parameter(Mandatory = $true)]
-    [System.IO.FileInfo]$TaskRoot,
+    [System.Io.FileInfo]$TaskRoot,
     [Parameter(Mandatory = $false)]
     [switch]$Clean,
     [Parameter(Mandatory = $false)]
@@ -104,7 +104,8 @@ try {
     $ResolvedTaskRoot = (Resolve-Path -Path "$TaskRoot").Path
     $ConfigPath = "$($ResolvedTaskRoot)/dependency.json"
     $PackageTemp = "$($ENV:Temp)/$((New-Guid).ToString())"
-    $ReleaseTaskRoot = "$PSScriptRoot/Release/$($TaskRoot.BaseName)"
+    $TaskName = (Get-Item -Path "$ResolvedTaskRoot").Name
+    $ReleaseTaskRoot = "$PSScriptRoot/Release/$TaskName"
 
     $null = New-Item -Path $PackageTemp -ItemType Directory -Force
     Write-Verbose -Message "ResolvedTaskRoot: $ResolvedTaskRoot"

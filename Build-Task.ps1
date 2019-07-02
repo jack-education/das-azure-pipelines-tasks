@@ -211,7 +211,7 @@ try {
                     if ($Package.Copy) {
                         $Package.Copy | ForEach-Object {
                             Write-Host "[GitHub] Copying dependency $_ to $($Package.Path)"
-                            Copy-Item -Path $RepositoryDestination/$_ -Destination $ResolvedPackagePath -Force
+                            Copy-Item -Path $RepositoryDestination/$_ -Destination $ResolvedPackagePath -Recurse -Force
                         }
                     }
 

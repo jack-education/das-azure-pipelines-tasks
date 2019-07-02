@@ -9,7 +9,7 @@ Export-ModuleMember -Function @(
 
 
 $Script:EmojiDictionary = @{
-    GreenCheck = [System.Text.Encoding]::UTF32.GetString([System.Text.Encoding]::Unicode.GetBytes("✔"))
-    StopWatch = [System.Text.Encoding]::UTF32.GetString([System.Text.Encoding]::Unicode.GetBytes("⏱"))
-    Lightning = [System.Text.Encoding]::UTF32.GetString([System.Text.Encoding]::Unicode.GetBytes("⚡"))    
+    GreenCheck = [System.Text.Encoding]::UTF32.GetString([System.Text.Encoding]::UTF32.GetBytes("✔"))
+    StopWatch = [System.Text.Encoding]::UTF32.GetString([System.Text.Encoding]::UTF32.GetBytes("⏱"))
+    Lightning = [System.Text.Encoding]::UTF32.GetString([System.Text.Encoding]::UTF32.GetBytes("⚡"))    
 }

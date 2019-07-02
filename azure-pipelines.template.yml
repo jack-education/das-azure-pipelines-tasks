@@ -22,7 +22,7 @@ steps:
   - task: PackageVSTSExtension@1
     inputs:
       rootFolder: $(System.DefaultWorkingDirectory)/release/${{ parameters.name }}
-      updateTasksVersion: true
+      updateTasksVersion: false
   - task: CopyFiles@2
     displayName: "Copy Files to: $(build.artifactstagingdirectory)"
     inputs:

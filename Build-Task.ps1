@@ -134,7 +134,7 @@ try {
         Remove-Item -Path "$PSScriptRoot/Release" -Force -Recurse -ErrorAction SilentlyContinue
     }
 
-    if ($Build.IsPresent -and !$ENV:TF_BUILD) {
+    if ($Build.IsPresent) {
         Set-PatchVersion -TaskRoot $ResolvedTaskRoot
     }
 

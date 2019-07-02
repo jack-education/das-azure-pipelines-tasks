@@ -6,3 +6,10 @@ Get-ChildItem -Path $PSScriptRoot -Filter *.ps1 -File  -Recurse | ForEach-Object
 Export-ModuleMember -Function @(
     'New-ConfigurationTableEntry'
 )
+
+
+$Script:EmojiDictionary = @{
+    GreenCheck = [System.Text.Encoding]::UTF32.GetString([System.Text.Encoding]::Unicode.GetBytes("✔"))
+    StopWatch = [System.Text.Encoding]::UTF32.GetString([System.Text.Encoding]::Unicode.GetBytes("⏱"))
+    Lightning = [System.Text.Encoding]::UTF32.GetString([System.Text.Encoding]::Unicode.GetBytes("⚡"))    
+}

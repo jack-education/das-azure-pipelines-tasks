@@ -49,7 +49,7 @@ function New-ConfigurationTableEntry {
             }
             New-ConfigurationEntity @NewEntityParameters
 
-            Write-Host "Configuration succesfully added to $PartitionKey/$RowKey ✔"
+            Write-Host "Configuration succesfully added to $PartitionKey/$RowKey $($Script:EmojiDictionary.GreenCheck)"
         }
     }
     catch {

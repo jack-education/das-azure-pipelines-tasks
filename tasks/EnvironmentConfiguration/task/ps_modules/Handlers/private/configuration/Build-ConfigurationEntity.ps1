@@ -11,7 +11,7 @@ function Build-ConfigurationEntity {
     try {
             Trace-VstsEnteringInvocation $MyInvocation
 
-            Write-Host "Parsing schema: $(([System.IO.FileInfo]$SchemaDefinitionPath).Name) ⚡"
+            Write-Host "Parsing schema: $(([System.IO.FileInfo]$SchemaDefinitionPath).Name) $($Script:EmojiDictionary.Lightning)"
             $SchemaDefinition = Get-Content -Path $SchemaDefinitionPath -Raw
             $SchemaObject = [Newtonsoft.Json.Schema.JSchema, Newtonsoft.Json.Schema, Version = 3.0.0.0, Culture = neutral, PublicKeyToken = 30ad4fe6b2a6aeed]::Parse($SchemaDefinition)
 

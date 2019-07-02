@@ -7,7 +7,7 @@ steps:
   - powershell: |
       ./Build-Task.ps1 -TaskRoot $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }} -Build
     displayName: "Build"
-    failOnStderr: "true"
+    failOnStderr: "false"
     workingDirectory:  $(System.DefaultWorkingDirectory)
   - powershell: |
       ./Start-UnitTest.ps1 -TestRoot  $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }}/tests

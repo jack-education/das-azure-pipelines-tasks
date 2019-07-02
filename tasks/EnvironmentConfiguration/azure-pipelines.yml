@@ -1,0 +1,4 @@
+steps:
+- template: $(System.DefaultWorkingDirectory)/azure-pipelines.template.yml
+  parameters:
+    name: 'EnvironmentConfiguration'

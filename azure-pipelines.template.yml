@@ -1,0 +1,53 @@
+parameters:
+  name: ''
+
+variables:
+  taskRoot: $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }}
+  testRoot: $(System.DefaultWorkingDirectory)/release/${{ parameters.name }}/tests
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - "*"
+  paths:
+    include:
+      - $(taskRoot)
+
+pr: none
+
+workspace:
+  clean: all
+
+pool:
+  name: "DAS - Continuous Deployment"
+
+  - powershell: |
+      ./Build-Task.ps1 -TaskRoot $(taskRoot)
+    displayName: "Build"
+    failOnStderr: "true"
+    workingDirectory:  $(System.DefaultWorkingDirectory)
+  - powershell: |
+      ./Start-UnitTest.ps1 -TestRoot $(testRoot)
+    displayName: "Test"
+    failOnStderr: "true"
+    workingDirectory:  $(System.DefaultWorkingDirectory)    
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'NUnit'
+      testResultsFiles: $(testRoot)\Test-Pester.XML
+    condition: succeededOrFailed()
+  - task: CopyFiles@2
+    displayName: "Copy Files to: $(build.artifactstagingdirectory)"
+    inputs:
+      Contents: |
+        release/bin/*.vsix
+        release/$(name)/**
+      TargetFolder: "$(build.artifactstagingdirectory)/publish"
+      OverWrite: true
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish Artifact"
+    inputs:
+      PathtoPublish: "$(build.artifactstagingdirectory)/publish"
+
+

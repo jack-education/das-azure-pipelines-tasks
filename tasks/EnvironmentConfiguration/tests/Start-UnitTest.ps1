@@ -1,5 +1,3 @@
-$ENV:SYSTEM_CULTURE = "en_US"
-Import-Module -Name $PSScriptRoot/../task/ps_modules/VstsTaskSdk -Force
 Import-Module -Name $PSScriptRoot/modules/UnitTest.Helpers.psm1 -Force
 Import-Module -Name $PSScriptRoot/../task/InitializationHelpers.psm1 -Force
 

@@ -11,12 +11,6 @@ InModuleScope "Handlers" {
             Clear-MockEnvironment
         }
 
-        Mock Trace-VstsLeavingInvocation {
-        }
-    
-        Mock Trace-VstsEnteringInvocation {
-        }
-
         Mock Get-VstsTaskVariable { return "default-string" }
         Mock Get-VstsTaskVariable { return 1 } -ParameterFilter { $AsInt -eq $true }
         Mock Get-VstsTaskVariable { return $true } -ParameterFilter { $AsBool -eq $true }

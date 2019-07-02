@@ -11,12 +11,6 @@ InModuleScope "Handlers" {
             Clear-MockEnvironment
         }
 
-        Mock Trace-VstsLeavingInvocation {
-        }
-    
-        Mock Trace-VstsEnteringInvocation {
-        }
-
         $SchemaDefinition = "$PSScriptRoot/resource/SFA.DAS.Test.schema.json"
         $ValidConfiguration = Get-Content -Path "$PSScriptRoot/resource/SFA.DAS.Test.Valid.json" -Raw
         $InvalidConfiguration = Get-Content -Path "$PSScriptRoot/resource/SFA.DAS.Test.Invalid.json" -Raw

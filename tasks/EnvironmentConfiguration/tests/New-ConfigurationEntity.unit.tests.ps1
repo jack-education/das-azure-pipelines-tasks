@@ -12,10 +12,42 @@ InModuleScope "Handlers" {
             Clear-MockEnvironment
         }
 
-        Mock Trace-VstsLeavingInvocation {
+        Mock Get-AzResource {
+            return @{
+                ResourceGroupName = "mock-resource-group"
+            }
+        }
+        
+        Mock Get-AzStorageAccountKey {
+            $MockKeysArray = @(
+                @{
+                    KeyName = "key1"
+                    Value = "bW9jayBzdG9yYWdlIGFjY291bnQga2V5IG5vdGhpbmcgdG8gc2VlIGhlcmUgMQ=="
+                    Permissions = "Full"
+                },
+                @{
+                    Key1 = "key2"
+                    Value = "bW9jayBzdG9yYWdlIGFjY291bnQga2V5IG5vdGhpbmcgdG8gc2VlIGhlcmUgMg=="
+                    Permissions = "Full"
+                }
+            )
+            return $MockKeysArray
         }
     
-        Mock Trace-VstsEnteringInvocation {
+        Mock Get-AzStorageTable {
+            return @{ }
+        }
+
+        Mock Get-TableEntity {
+            return @{ }
+        }
+    
+        Mock New-TableEntity {
+            return @{ }
+        }
+    
+        Mock Set-TableEntity {
+            return @{ }
         }
 
         $StorageAccount = "mock-storage-account"

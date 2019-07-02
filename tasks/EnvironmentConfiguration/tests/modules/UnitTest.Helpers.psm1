@@ -33,50 +33,15 @@ function Clear-MockEnvironment {
 }
 
 function Add-DefaultMocks {
-    Mock Get-AzResource {
-        return @{
-            ResourceGroupName = "mock-resource-group"
-        }
-    }
-    
-    Mock Get-AzStorageAccountKey {
-        $MockKeysArray = @(
-            @{
-                KeyName = "key1"
-                Value = "bW9jayBzdG9yYWdlIGFjY291bnQga2V5IG5vdGhpbmcgdG8gc2VlIGhlcmUgMQ=="
-                Permissions = "Full"
-            },
-            @{
-                Key1 = "key2"
-                Value = "bW9jayBzdG9yYWdlIGFjY291bnQga2V5IG5vdGhpbmcgdG8gc2VlIGhlcmUgMg=="
-                Permissions = "Full"
-            }
-        )
-        return $MockKeysArray
+
+    Mock Trace-VstsLeavingInvocation {
     }
 
-    Mock Get-AzStorageTable {
-        return @{ }
-    }
-
-    Mock New-AzStorageTable {
-        return @{ }
-    }
-
-    Mock Get-TableEntity {
-        return @{ }
-    }
-
-    Mock New-TableEntity {
-        return @{ }
-    }
-
-    Mock Set-TableEntity {
-        return @{ }
+    Mock Trace-VstsEnteringInvocation {
     }
 
     Mock Write-Host {
-        
+
     }
 
 }

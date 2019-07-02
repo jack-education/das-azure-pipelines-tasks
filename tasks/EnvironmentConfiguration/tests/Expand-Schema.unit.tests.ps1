@@ -11,12 +11,6 @@ InModuleScope "Handlers" {
             Clear-MockEnvironment
         }
 
-        Mock Trace-VstsLeavingInvocation {
-        }
-    
-        Mock Trace-VstsEnteringInvocation {
-        }
-
         Mock Get-SchemaProperty {
             return "mock"
         }

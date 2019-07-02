@@ -1,4 +1,4 @@
 steps:
-- template: azure-pipelines.template.yml
+- template: /azure-pipelines.template.yml
   parameters:
     name: 'EnvironmentConfiguration'

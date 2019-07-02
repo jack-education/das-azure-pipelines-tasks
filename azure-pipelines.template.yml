@@ -22,6 +22,7 @@ workspace:
 pool:
   name: "DAS - Continuous Deployment"
 
+steps:
   - powershell: |
       ./Build-Task.ps1 -TaskRoot $(taskRoot)
     displayName: "Build"

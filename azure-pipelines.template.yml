@@ -3,7 +3,7 @@ parameters:
 
 steps:
   - powershell: |
-      ./Build-Task.ps1 -TaskRoot $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }}
+      ./Build-Task.ps1 -TaskRoot $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }} -Build
     displayName: "Build"
     failOnStderr: "true"
     workingDirectory:  $(System.DefaultWorkingDirectory)

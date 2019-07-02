@@ -2,6 +2,7 @@ Import-Module -Name $PSScriptRoot/modules/UnitTest.Helpers.psm1 -Force
 Import-Module -Name $PSScriptRoot/../task/InitializationHelpers.psm1 -Force
 
 $ErrorActionPreference = "Stop"
+$ENV:IsTest = $true
 
 Initialize-TaskDependencies
 

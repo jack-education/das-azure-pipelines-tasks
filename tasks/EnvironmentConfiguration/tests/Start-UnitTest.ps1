@@ -1,5 +1,6 @@
 $ENV:SYSTEM_CULTURE = "en_US"
 $ErrorActionPreference = "Stop"
+$ENV:IsTest = $true
 Import-Module -Name $PSScriptRoot/../task/InitializationHelpers.psm1 -Force -Global
 
 Initialize-TaskDependencies

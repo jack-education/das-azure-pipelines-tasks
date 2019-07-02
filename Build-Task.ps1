@@ -96,6 +96,10 @@ function Set-PatchVersion {
 
 
 try {
+
+    # --- Ensure that nuget is available
+    $null = Register-PackageSource -ProviderName Nuget -Name nuget.org -Location https://www.nuget.org/api/v2 -Trusted:$true -Force
+
     Write-Verbose -Message "Resolving common paths.."
     $ResolvedTaskRoot = (Resolve-Path -Path "$TaskRoot").Path
     $ConfigPath = "$($ResolvedTaskRoot)/dependency.json"

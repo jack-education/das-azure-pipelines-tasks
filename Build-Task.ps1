@@ -206,7 +206,7 @@ try {
                     $RepositoryUrl = "https://github.com/$($Package.Name).git"
                     $RepositoryDestination = "$PackageTemp/$($Package.Name.Split("/")[1])"
                     Write-Host "[GitHub] Processing $($RepositoryUrl)"
-                    & git.exe clone $RepositoryUrl $RepositoryDestination
+                    & git.exe clone $RepositoryUrl $RepositoryDestination | Out-Null
 
                     if ($Package.Copy) {
                         $Package.Copy | ForEach-Object {

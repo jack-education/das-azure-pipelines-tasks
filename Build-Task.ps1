@@ -186,7 +186,7 @@ try {
                     }
 
                     Write-Host "[NuGet] Installing package $($Package.Name) to $($PackageTemp)"
-                    $null = Install-Package @InstallPackageParameters -Source Nuget
+                    $null = Install-Package @InstallPackageParameters
 
                     if ($Package.Copy) {
                         $null = New-Item -Path $ResolvedPackagePath -ItemType Directory -ErrorAction SilentlyContinue

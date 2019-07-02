@@ -2,6 +2,8 @@ parameters:
   name: ''
 
 steps:
+  - task: GitVersion@4
+    displayName: GitVersion
   - powershell: |
       ./Build-Task.ps1 -TaskRoot $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }} -Build
     displayName: "Build"
@@ -17,6 +19,10 @@ steps:
       testResultsFormat: 'NUnit'
       testResultsFiles: $(testRoot)\Test-Pester.XML
     condition: succeededOrFailed()
+  - task: PackageVSTSExtension@1
+    inputs:
+      rootFolder: $(System.DefaultWorkingDirectory)/release/${{ parameters.name }}
+      updateTasksVersion: true
   - task: CopyFiles@2
     displayName: "Copy Files to: $(build.artifactstagingdirectory)"
     inputs:

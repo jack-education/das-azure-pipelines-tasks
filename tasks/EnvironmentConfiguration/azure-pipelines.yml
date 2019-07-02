@@ -1,3 +1,20 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - "*"
+  paths:
+    include:
+      - $(taskRoot)
+
+pr: none
+
+workspace:
+  clean: all
+
+pool:
+  name: "DAS - Continuous Deployment"
+
 steps:
 - template: /azure-pipelines.template.yml
   parameters:

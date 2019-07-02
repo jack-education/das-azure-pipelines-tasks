@@ -5,23 +5,6 @@ variables:
   taskRoot: $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }}
   testRoot: $(System.DefaultWorkingDirectory)/release/${{ parameters.name }}/tests
 
-trigger:
-  batch: true
-  branches:
-    include:
-      - "*"
-  paths:
-    include:
-      - $(taskRoot)
-
-pr: none
-
-workspace:
-  clean: all
-
-pool:
-  name: "DAS - Continuous Deployment"
-
 steps:
   - powershell: |
       ./Build-Task.ps1 -TaskRoot $(taskRoot)

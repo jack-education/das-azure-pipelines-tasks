@@ -1,18 +1,14 @@
 parameters:
   name: ''
 
-variables:
-  taskRoot: $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }}
-  testRoot: $(System.DefaultWorkingDirectory)/release/${{ parameters.name }}/tests
-
 steps:
   - powershell: |
-      ./Build-Task.ps1 -TaskRoot $(taskRoot)
+      ./Build-Task.ps1 -TaskRoot $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }}
     displayName: "Build"
     failOnStderr: "true"
     workingDirectory:  $(System.DefaultWorkingDirectory)
   - powershell: |
-      ./Start-UnitTest.ps1 -TestRoot $(testRoot)
+      ./Start-UnitTest.ps1 -TestRoot  $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }}/tests
     displayName: "Test"
     failOnStderr: "true"
     workingDirectory:  $(System.DefaultWorkingDirectory)    

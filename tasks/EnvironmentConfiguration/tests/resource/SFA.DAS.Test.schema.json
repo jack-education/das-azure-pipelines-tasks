@@ -45,11 +45,6 @@
     "PaymentsString": {
       "type": "string",
       "environmentVariable": "PaymentsString"
-    },
-    "PaymentsDefaultValue": {
-      "type": "string",
-      "default": "default-value",
-      "environmentVariable": "PaymentsDefaultValue"
     }
   },
   "additionalProperties": false,

@@ -10,10 +10,11 @@ function Expand-Schema {
 
         Trace-VstsEnteringInvocation $MyInvocation
 
-        $ProcessedProperties = @{ }
+        [Hashtable]$ProcessedProperties = @{ }
         foreach ($Key in $PropertyObject.Keys) {
 
             $Property = $PropertyObject.Item($Key)
+            Write-Verbose -Message "Processing Property: $Property"
             Switch ($Property.Type.ToString()) {
 
                 'Object' {

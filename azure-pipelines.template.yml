@@ -2,8 +2,6 @@ parameters:
   name: ''
 
 steps:
-  - task: GitVersion@4
-    displayName: GitVersion
   - powershell: |
       ./Build-Task.ps1  -Build -TaskRoot $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }}
     displayName: "Build"

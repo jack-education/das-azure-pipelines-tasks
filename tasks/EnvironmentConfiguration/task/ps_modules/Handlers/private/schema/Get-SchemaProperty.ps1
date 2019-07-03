@@ -58,6 +58,7 @@ function Get-SchemaProperty {
         }
 
         if (!$TaskVariable -and	$PropertyObject.Default.Value) {
+            Write-Verbose -Message "No task variable found for [ $VariableName ] and a default value is present in the schema"
             $TaskVariable = $PropertyObject.Default.Value
         }
 
@@ -71,6 +72,6 @@ function Get-SchemaProperty {
         Write-Error -Message "Could not get property from object [ $VariableName ] : $_" -ErrorAction Stop
     }
     finally {
-        Trace-VstsEnteringInvocation $MyInvocation
+        Trace-VstsLeavingInvocation $MyInvocation
     }
 }

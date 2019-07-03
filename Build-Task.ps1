@@ -84,7 +84,7 @@ function Set-Version {
 
         $TaskObject.Version.Major = $Version.Major
         $TaskObject.Version.Minor = $Version.Minor
-        $TaskObject.Version.Patch = $Version.Patch
+        $TaskObject.Version.Patch = $Version.Build
         Write-Verbose -Message "Version set to $NewVersion"
     
         $ManifestObject | ConvertTo-Json -Depth 10 | Set-Content -Path $Manifest

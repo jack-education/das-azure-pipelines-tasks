@@ -64,7 +64,7 @@ Param(
 # Default error action to stop
 $ErrorActionPreference = "Stop"
 
-function Set-PatchVersion {
+function Set-Version {
     Param (
         [Parameter(Mandatory = $true)]
         [String]$TaskRoot
@@ -76,23 +76,23 @@ function Set-PatchVersion {
     
         $ManifestObject = Get-Content -Path $Manifest -Raw | ConvertFrom-Json
         $TaskObject = Get-Content -Path $Task -Raw | ConvertFrom-Json
-    
-        [Version]$Version = $ManifestObject.Version
-        $Increment = $Version.Build + 1
-        $NewVersion = "$($Version.Major).$($Version.Minor).$Increment"
+        
+        $NewVersion = $ENV:BUILD_BUILDNUMBER
+        [Version]$Version = $NewVersion
+        $TaskObject.Version.Major = $Version.Major
+        $TaskObject.Version.Minor = $Version.Minor
+        $TaskObject.Version.Patch = $Version.Patch
         Write-Verbose -Message "Version set to $NewVersion"
-    
-        $ManifestObject.Version = [Version]::new($NewVersion).ToString()
-        $TaskObject.Version.Patch = $Increment
     
         $ManifestObject | ConvertTo-Json -Depth 10 | Set-Content -Path $Manifest
         $TaskObject | ConvertTo-Json -Depth 10 | Set-Content -Path $Task
-
-    } catch {
+    }
+    catch {
         Write-Error -Message "Failed to update task version number: $_" -ErrorAction Stop
     }
-
 }
+
+
 
 
 try {
@@ -119,7 +119,7 @@ try {
     Write-Verbose -Message "Retrieving config definition from $ConfigPath"
     $Config = (Get-Content -Path $ConfigPath -Raw) | ConvertFrom-Json
 
-    if ($Clean.IsPresent -and $SkipRestore.IsPresent){
+    if ($Clean.IsPresent -and $SkipRestore.IsPresent) {
         Write-Warning -Message "Don't use Clean and SkipRestore together. Clean task will now be skipped!"
     }
 
@@ -135,8 +135,8 @@ try {
         Remove-Item -Path "$PSScriptRoot/Release" -Force -Recurse -ErrorAction SilentlyContinue
     }
 
-    if ($Build.IsPresent) {
-        Set-PatchVersion -TaskRoot $ResolvedTaskRoot
+    if ($Build.IsPresent -and $ENV:BUILD_BUILDNUMBER) {
+        Set-Version -TaskRoot $ResolvedTaskRoot
     }
 
     $null = New-Item -Path $ReleaseTaskRoot -ItemType Directory -Force -ErrorAction SilentlyContinue

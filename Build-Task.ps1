@@ -73,12 +73,15 @@ function Set-Version {
     try {
         $Manifest = "$TaskRoot/vss-extension.json"
         $Task = "$TaskRoot/task/task.json"
-    
-        $ManifestObject = Get-Content -Path $Manifest -Raw | ConvertFrom-Json
-        $TaskObject = Get-Content -Path $Task -Raw | ConvertFrom-Json
-        
+
         $NewVersion = $ENV:BUILD_BUILDNUMBER
         [Version]$Version = $NewVersion
+
+        $ManifestObject = Get-Content -Path $Manifest -Raw | ConvertFrom-Json
+        $TaskObject = Get-Content -Path $Task -Raw | ConvertFrom-Json
+
+        $ManifestObject.Version = $Version.ToString()	
+
         $TaskObject.Version.Major = $Version.Major
         $TaskObject.Version.Minor = $Version.Minor
         $TaskObject.Version.Patch = $Version.Patch
@@ -91,9 +94,6 @@ function Set-Version {
         Write-Error -Message "Failed to update task version number: $_" -ErrorAction Stop
     }
 }
-
-
-
 
 try {
 

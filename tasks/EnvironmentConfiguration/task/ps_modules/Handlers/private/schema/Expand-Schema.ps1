@@ -14,7 +14,6 @@ function Expand-Schema {
         foreach ($Key in $PropertyObject.Keys) {
 
             $Property = $PropertyObject.Item($Key)
-            Write-Verbose -Message "Processing Property: $Property"
             Switch ($Property.Type.ToString()) {
 
                 'Object' {
@@ -64,6 +63,8 @@ function Expand-Schema {
         }
 
         Write-Output $ProcessedProperties
+
+        Write-Host ($ProcessedProperties | ConvertTo-Json -Depth 10)
 
     }
     catch {

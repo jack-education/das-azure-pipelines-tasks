@@ -12,7 +12,10 @@ function Set-MockEnvironment {
     $ENV:PaymentsString = "string"
     $ENV:PaymentsInt = "1"
     $ENV:PaymentsNumber = "1.0"
-    $ENV:PaymentsArray = "['one', 'two', 'three']"
+    $ENV:PaymentsArray = @"
+    [{"one":"value"}, {"two": "value"}, {"three":"value"}]
+"@
+
 }
 
 function Clear-MockEnvironment {

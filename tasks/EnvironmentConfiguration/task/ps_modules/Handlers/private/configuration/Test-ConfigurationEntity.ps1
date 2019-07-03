@@ -14,7 +14,7 @@ function Test-ConfigurationEntity {
 
         Write-Host "Validating $($Script:EmojiDictionary.StopWatch)"
         $SchemaDefinition = Get-Content -Path $SchemaDefinitionPath -Raw
-        $SchemaObject = [Newtonsoft.Json.Schema.JSchema, Newtonsoft.Json.Schema, Version = 3.0.0.0, Culture = neutral, PublicKeyToken = 30ad4fe6b2a6aeed]::Parse($SchemaDefinition)
+        $SchemaObject = [Newtonsoft.Json.Schema.JSchema, Newtonsoft.Json.Schema, Version = 2.0.0.0, Culture = neutral, PublicKeyToken = 30ad4fe6b2a6aeed]::Parse($SchemaDefinition)
 
         $ConfigurationObject = [Newtonsoft.Json.Linq.JToken]::Parse($Configuration)
         [Newtonsoft.Json.Schema.SchemaExtensions]::Validate($ConfigurationObject, $SchemaObject)

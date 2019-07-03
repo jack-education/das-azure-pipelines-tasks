@@ -17,7 +17,7 @@ InModuleScope "Handlers" {
 
         $SchemaDefinitionPath = "$PSScriptRoot/resource/SFA.DAS.Test.schema.json"
         $SchemaDefinition = Get-Content -Path $SchemaDefinitionPath -Raw
-        $SchemaObject = [Newtonsoft.Json.Schema.JSchema, Newtonsoft.Json.Schema, Version = 3.0.0.0, Culture = neutral, PublicKeyToken = 30ad4fe6b2a6aeed]::Parse($SchemaDefinition)
+        $SchemaObject = [Newtonsoft.Json.Schema.JSchema, Newtonsoft.Json.Schema, Version = 2.0.0.0, Culture = neutral, PublicKeyToken = 30ad4fe6b2a6aeed]::Parse($SchemaDefinition)
 
         Context "When passed a valid schema definition" {
 

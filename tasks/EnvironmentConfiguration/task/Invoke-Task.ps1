@@ -4,8 +4,8 @@ try {
     Trace-VstsEnteringInvocation $MyInvocation
 
     Import-Module -Name $PSScriptRoot/InitializationHelpers.psm1 -Force
-    Initialize-TaskDependencies -Verbose:$VerbosePreference
-
+    Initialize-TaskDependencies
+    
     if ($ENV:TF_BUILD) {
 
         # --- Inputs

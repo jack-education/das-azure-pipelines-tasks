@@ -13,7 +13,7 @@
     {
       "type": "Nuget",
       "name": "Newtonsoft.Json",
-      "version": "10.0.2",
+      "version": "9.0.1",
       "copy":[
         "lib/netstandard1.0/*.dll"
       ],
@@ -22,7 +22,7 @@
     {
       "type": "Nuget",
       "name": "Newtonsoft.Json.Schema",
-      "version": "3.0.5",
+      "version": "2.0.8",
       "copy":[
         "lib/netstandard1.3/*.dll"
       ],

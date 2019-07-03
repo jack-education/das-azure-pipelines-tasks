@@ -22,7 +22,7 @@ steps:
     inputs:
       rootFolder: $(System.DefaultWorkingDirectory)/release/${{ parameters.name }}
       outputPath: $(System.DefaultWorkingDirectory)/release/bin
-      updateTasksVersion: false
+      updateTasksVersion: true
     displayName: "Package vsix"
   - task: CopyFiles@2
     inputs:

@@ -44,7 +44,7 @@ function Get-SchemaProperty {
 
                 'AsArray' {
                     $ArrayString = Get-VstsTaskVariable -Name $VariableName
-                    $DeserializedObject = [Newtonsoft.Json.JsonConvert]::DeserializeObject($ArrayString)
+                    $DeserializedObject = [Newtonsoft.Json.JsonConvert, Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed]::DeserializeObject($ArrayString)
                     $TaskVariable = [System.Array]$DeserializedObject
                     break
                 }

@@ -18,7 +18,10 @@ function Build-ConfigurationEntity {
             Write-Host "Processing properties"
             $Settings = [Newtonsoft.Json.JsonSerializerSettings]::new()
             $Settings.MaxDepth = 100
-            $Configuration = [Newtonsoft.Json.JsonConvert]::SerializeObject((Expand-Schema -PropertyObject $SchemaObject.Properties), $Settings)
+            $Schema = Expand-Schema -PropertyObject $SchemaObject.Properties
+            Write-Verbose -Message "$($Schema.GetType()) "
+            Write-Verbose -Message ($Schema | ConvertTo-Json -Depth 10)
+            $Configuration = [Newtonsoft.Json.JsonConvert]::SerializeObject($Schema, $Settings)
 
             Write-Output $Configuration
     }

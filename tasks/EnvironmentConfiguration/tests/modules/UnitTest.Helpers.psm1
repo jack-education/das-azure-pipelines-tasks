@@ -1,3 +1,9 @@
+# Set AzureRm alias
+$AzAccountsModule = @(Get-Module Az.Accounts -ListAvailable)[0]
+if ($AzAccountsModule) { 
+    Enable-AzureRmAlias -Scope Process
+}
+
 function Set-MockEnvironment {
     $ENV:SYSTEM_CULTURE = "en-US"
     $ENV:AGENT_VERSION = "2.152.1"

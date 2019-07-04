@@ -2,12 +2,6 @@ $ENV:SYSTEM_CULTURE = "en_US"
 $ErrorActionPreference = "Stop"
 $ENV:IsTest = $true
 
-$AzAccountsModule = @(Get-Module Az.Accounts -ListAvailable)[0]
-
-if ($AzAccountsModule) { 
-    Enable-AzureRmAlias -Scope Process
-}
-        
 Import-Module -Name $PSScriptRoot/../task/InitializationHelpers.psm1 -Force -Global
 
 Initialize-TaskDependencies

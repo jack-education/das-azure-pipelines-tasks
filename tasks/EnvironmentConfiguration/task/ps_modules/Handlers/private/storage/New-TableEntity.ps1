@@ -1,24 +1,37 @@
 function New-TableEntity {
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [String]$Configuration,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [String]$PartitionKey,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [String]$RowKey
     )
 
     try {
         Trace-VstsEnteringInvocation $MyInvocation
 
-        $Entity = [Microsoft.Azure.Cosmos.Table.DynamicTableEntity]::new($PartitionKey, $RowKey)
+        if ($Script:IsAz) {
+            $Entity = [Microsoft.Azure.Cosmos.Table.DynamicTableEntity]::new($PartitionKey, $RowKey)
+        }
+        elseif ($Script:IsAzureRm) {
+            $Entity = New-Object -TypeName Microsoft.WindowsAzure.Storage.Table.DynamicTableEntity -ArgumentList $PartitionKey, $RowKey
+        }
+        
         $Entity.Properties.Add("Data", $Configuration)
-        $null = $StorageTable.CloudTable.Execute([Microsoft.Azure.Cosmos.Table.TableOperation]::Insert($Entity))
+        if ($Script:IsAz) {
+            $null = $StorageTable.CloudTable.Execute([Microsoft.Azure.Cosmos.Table.TableOperation]::Insert($Entity))
+        }
+        elseif ($Script:IsAzureRm) {
+            $null = $StorageTable.CloudTable.Execute([Microsoft.WindowsAzure.Storage.Table.TableOperation]::Insert($Entity))
+        }
 
-    } catch {
+    }
+    catch {
         Write-Error -Message "$_" -ErrorAction Stop
-    } finally {
+    }
+    finally {
         Trace-VstsLeavingInvocation $MyInvocation
     }
 }

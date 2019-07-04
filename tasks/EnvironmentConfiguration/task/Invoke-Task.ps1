@@ -31,9 +31,11 @@ try {
         if ($AzAccountsModule) { 
             Initialize-AzModule -Endpoint $Endpoint
             Enable-AzureRmAlias -Scope Process
+            $Script:IsAz = $true
         }
         elseif ($AzureRmProfileModule) {
             Initialize-AzureRMModule -Endpoint $Endpoint
+            $Script:IsAzureRm = $true
         }
         else {
             throw "No Azure powershell module found"

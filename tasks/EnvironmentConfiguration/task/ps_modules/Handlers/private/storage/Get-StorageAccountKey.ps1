@@ -11,13 +11,10 @@ function Get-StorageAccountKey {
     try {
         Trace-VstsEnteringInvocation $MyInvocation
 
-        $AzAccountsModule = @(Get-Module Az.Accounts -ListAvailable)[0]
-        $AzureRmProfileModule = @(Get-Module AzureRm.Profile -ListAvailable)[0]
-
-        if ($AzAccountsModule) { 
+        if ($Script:IsAz) { 
             $StorageAccount = Get-AzureRmResource -Name $Name -ResourceType "Microsoft.Storage/storageAccounts" -ErrorAction Stop
         }
-        elseif ($AzureRmProfileModule) {
+        elseif ($Script:IsAzureRm) {
             $StorageAccount = Find-AzureRmResource -Name $Name -ResourceType "Microsoft.Storage/storageAccounts" -ErrorAction Stop
         }
 

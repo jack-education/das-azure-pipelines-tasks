@@ -1,14 +1,15 @@
 $ENV:SYSTEM_CULTURE = "en_US"
 $ErrorActionPreference = "Stop"
 $ENV:IsTest = $true
+
 Import-Module -Name $PSScriptRoot/../task/InitializationHelpers.psm1 -Force -Global
 
 Initialize-TaskDependencies
 
 $Parameters = @{
-    PassThru = $true
+    PassThru     = $true
     OutputFormat = 'NUnitXml'
-    OutputFile = "$PSScriptRoot\Test-Pester.XML"
+    OutputFile   = "$PSScriptRoot\Test-Pester.XML"
 }
 
 Push-Location

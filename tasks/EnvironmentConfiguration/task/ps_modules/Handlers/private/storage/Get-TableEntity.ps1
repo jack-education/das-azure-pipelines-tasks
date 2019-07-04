@@ -1,27 +1,35 @@
 function Get-TableEntity {
-<#
+    <#
 #>
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [PSObject]$StorageTable,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [String]$PartitionKey,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [String]$RowKey
     )
 
     try {
         Trace-VstsEnteringInvocation $MyInvocation
 
-        $TableOperation = [Microsoft.Azure.Cosmos.Table.TableOperation]::Retrieve($PartitionKey, $RowKey)
+        if ($Global:IsAz) {
+            $TableOperation = [Microsoft.Azure.Cosmos.Table.TableOperation]::Retrieve($PartitionKey, $RowKey)
+        }
+        elseif ($Global:IsAzureRm) {
+            $TableOperation = [Microsoft.WindowsAzure.Storage.Table.TableOperation]::Retrieve($PartitionKey, $RowKey)
+            
+        }
         $Entity = $StorageTable.CloudTable.Execute($TableOperation, $null, $null)
 
         Write-Output $Entity.Result
 
-    } catch {
+    }
+    catch {
         Write-Error -Message "$_" -ErrorAction Stop
-    } finally {
+    }
+    finally {
         Trace-VstsLeavingInvocation $MyInvocation
     }
 }

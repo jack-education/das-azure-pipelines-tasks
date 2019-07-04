@@ -19,13 +19,13 @@ function New-ConfigurationEntity {
 
         Write-Verbose -Message "Building storage context"
         $StorageAccountKey = Get-StorageAccountKey -Name $StorageAccount
-        $StorageContext = New-AzStorageContext -StorageAccountName $StorageAccount -StorageAccountKey $StorageAccountKey
+        $StorageContext = New-AzureStorageContext -StorageAccountName $StorageAccount -StorageAccountKey $StorageAccountKey
 
         Write-Verbose -Message "Searching for storage table $TableName"
-        $StorageTable = Get-AzStorageTable -Context $StorageContext -Name $TableName -ErrorAction SilentlyContinue
+        $StorageTable = Get-AzureStorageTable -Context $StorageContext -Name $TableName -ErrorAction SilentlyContinue
         if (!$StorageTable){
             Write-Verbose -Message "Creating a new storage table $TableName"
-            $StorageTable = New-AzStorageTable -Context $StorageContext -Name $TableName
+            $StorageTable = New-AzureStorageTable -Context $StorageContext -Name $TableName
         }
 
         $Entity = Get-TableEntity -StorageTable $StorageTable -PartitionKey $PartitionKey -RowKey $RowKey

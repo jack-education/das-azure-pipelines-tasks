@@ -24,7 +24,22 @@ try {
 
         # --- Init
         $Endpoint = Get-VstsEndpoint -Name $ServiceEndpointName -Require
-        Initialize-AzModule -Endpoint $Endpoint
+
+        $AzAccountsModule = @(Get-Module Az.Accounts -ListAvailable)[0]
+        $AzureRmProfileModule = @(Get-Module AzureRm.Profile -ListAvailable)[0]
+
+        if ($AzAccountsModule) { 
+            Initialize-AzModule -Endpoint $Endpoint
+            Enable-AzureRmAlias -Scope Process
+            $Global:IsAz = $true
+        }
+        elseif ($AzureRmProfileModule) {
+            Initialize-AzureRMModule -Endpoint $Endpoint
+            $Global:IsAzureRm = $true
+        }
+        else {
+            throw "No Azure powershell module found"
+        }
     }
 
     $NewEnvironmentConfigurationTableEntryParameters = @{

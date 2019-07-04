@@ -11,12 +11,18 @@ function Get-StorageAccountKey {
     try {
         Trace-VstsEnteringInvocation $MyInvocation
 
-        $StorageAccount = Get-AzResource -Name $Name -ResourceType "Microsoft.Storage/storageAccounts" -ErrorAction Stop
-        if(!$StorageAccount){
+        if ($Global:IsAz) { 
+            $StorageAccount = Get-AzureRmResource -Name $Name -ResourceType "Microsoft.Storage/storageAccounts" -ErrorAction Stop
+        }
+        elseif ($Global:IsAzureRm) {
+            $StorageAccount = Find-AzureRmResource -Name $Name -ResourceType "Microsoft.Storage/storageAccounts" -ErrorAction Stop
+        }
+
+        if (!$StorageAccount) {
             Write-Error -Message "Could not find storage account resource." -ErrorAction Stop
         }
 
-        $StorageAccountKey = (Get-AzStorageAccountKey -ResourceGroupName $StorageAccount.ResourceGroupName -Name $Name)[0].Value
+        $StorageAccountKey = (Get-AzureRmStorageAccountKey -ResourceGroupName $StorageAccount.ResourceGroupName -Name $Name)[0].Value
         Write-Output $StorageAccountKey
     }
     catch {

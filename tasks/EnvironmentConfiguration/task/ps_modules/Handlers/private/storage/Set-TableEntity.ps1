@@ -10,10 +10,10 @@ function Set-TableEntity {
     try {
         Trace-VstsEnteringInvocation $MyInvocation
         $Entity.Properties["Data"].StringValue = $Configuration
-        if ($Script:IsAz) {
+        if ($Global:IsAz) {
             $null = $StorageTable.CloudTable.Execute([Microsoft.Azure.Cosmos.Table.TableOperation]::InsertOrReplace($Entity))
         }
-        elseif ($Script:IsAzureRm) {
+        elseif ($Global:IsAzureRm) {
             $null = $StorageTable.CloudTable.Execute([Microsoft.WindowsAzure.Storage.Table.TableOperation]::InsertOrReplace($Entity))
         }
 

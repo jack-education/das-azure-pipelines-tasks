@@ -12,18 +12,18 @@ function New-TableEntity {
     try {
         Trace-VstsEnteringInvocation $MyInvocation
 
-        if ($Script:IsAz) {
+        if ($Global:IsAz) {
             $Entity = [Microsoft.Azure.Cosmos.Table.DynamicTableEntity]::new($PartitionKey, $RowKey)
         }
-        elseif ($Script:IsAzureRm) {
+        elseif ($Global:IsAzureRm) {
             $Entity = New-Object -TypeName Microsoft.WindowsAzure.Storage.Table.DynamicTableEntity -ArgumentList $PartitionKey, $RowKey
         }
         
         $Entity.Properties.Add("Data", $Configuration)
-        if ($Script:IsAz) {
+        if ($Global:IsAz) {
             $null = $StorageTable.CloudTable.Execute([Microsoft.Azure.Cosmos.Table.TableOperation]::Insert($Entity))
         }
-        elseif ($Script:IsAzureRm) {
+        elseif ($Global:IsAzureRm) {
             $null = $StorageTable.CloudTable.Execute([Microsoft.WindowsAzure.Storage.Table.TableOperation]::Insert($Entity))
         }
 

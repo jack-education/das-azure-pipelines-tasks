@@ -3,7 +3,7 @@ InModuleScope "Handlers" {
 
     Describe "New-ConfigurationEntity tests" {
         Import-Module Az
-        $Script:IsAz = $true
+        $Global:IsAz = $true
         Enable-AzureRmAlias -Scope Process
     
         BeforeAll {

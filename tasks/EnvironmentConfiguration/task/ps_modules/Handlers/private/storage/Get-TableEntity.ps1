@@ -14,10 +14,10 @@ function Get-TableEntity {
     try {
         Trace-VstsEnteringInvocation $MyInvocation
 
-        if ($Script:IsAz) {
+        if ($Global:IsAz) {
             $TableOperation = [Microsoft.Azure.Cosmos.Table.TableOperation]::Retrieve($PartitionKey, $RowKey)
         }
-        elseif ($Script:IsAzureRm) {
+        elseif ($Global:IsAzureRm) {
             $TableOperation = [Microsoft.WindowsAzure.Storage.Table.TableOperation]::Retrieve($PartitionKey, $RowKey)
             
         }

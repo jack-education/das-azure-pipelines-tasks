@@ -12,13 +12,13 @@ InModuleScope "Handlers" {
             Clear-MockEnvironment
         }
 
-        Mock Get-AzResource {
+        Mock Get-AzureRmResource {
             return @{
                 ResourceGroupName = "mock-resource-group"
             }
         }
         
-        Mock Get-AzStorageAccountKey {
+        Mock Get-AzureStorageAccountKey {
             $MockKeysArray = @(
                 @{
                     KeyName = "key1"
@@ -34,11 +34,11 @@ InModuleScope "Handlers" {
             return $MockKeysArray
         }
 
-        Mock New-AzStorageTable {
+        Mock New-AzureStorageTable {
             return @{ }
         }
     
-        Mock Get-AzStorageTable {
+        Mock Get-AzureStorageTable {
             return @{ }
         }
 
@@ -70,18 +70,18 @@ InModuleScope "Handlers" {
 
         Context "When a table named 'configuration' does not exist" {
 
-            Mock Get-AzStorageTable {
+            Mock Get-AzureStorageTable {
                 return $null
             }
             
             It "Should create a new table in the storage account" {
                 New-ConfigurationEntity @NewConfigurationEntityParameters
-                Assert-MockCalled -CommandName Get-AzStorageTable -Times 1
-                Assert-MockCalled -CommandName New-AzStorageTable -Times 1
+                Assert-MockCalled -CommandName Get-AzureStorageTable -Times 1
+                Assert-MockCalled -CommandName New-AzureStorageTable -Times 1
             }
 
             It "Should throw if there is a failure when building a storage context" {
-                Mock New-AzStorageContext {
+                Mock New-AzureStorageContext {
                     throw "Could not build context"
                 }
 
@@ -93,9 +93,9 @@ InModuleScope "Handlers" {
             
             It "Should update an existing entity" {
                 { New-ConfigurationEntity @NewConfigurationEntityParameters } | Should Not Throw
-                Assert-MockCalled -CommandName Get-AzResource -Times 1
-                Assert-MockCalled -CommandName Get-AzStorageAccountKey -Times 1
-                Assert-MockCalled -CommandName Get-AzStorageTable -Times 1
+                Assert-MockCalled -CommandName Get-AzureRmResource -Times 1
+                Assert-MockCalled -CommandName Get-AzureStorageAccountKey -Times 1
+                Assert-MockCalled -CommandName Get-AzureStorageTable -Times 1
     
                 Assert-MockCalled -CommandName Get-TableEntity -Times 1
                 Assert-MockCalled -CommandName Set-TableEntity -Times 1
@@ -110,9 +110,9 @@ InModuleScope "Handlers" {
 
             It "Should create a new entity" {
                 { New-ConfigurationEntity @NewConfigurationEntityParameters } | Should Not Throw
-                Assert-MockCalled -CommandName Get-AzResource -Times 1
-                Assert-MockCalled -CommandName Get-AzStorageAccountKey -Times 1
-                Assert-MockCalled -CommandName Get-AzStorageTable -Times 1
+                Assert-MockCalled -CommandName Get-AzureRmResource -Times 1
+                Assert-MockCalled -CommandName Get-AzureStorageAccountKey -Times 1
+                Assert-MockCalled -CommandName Get-AzureStorageTable -Times 1
     
                 Assert-MockCalled -CommandName Get-TableEntity -Times 1
                 Assert-MockCalled -CommandName New-TableEntity -Times 1

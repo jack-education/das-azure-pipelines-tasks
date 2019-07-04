@@ -30,6 +30,7 @@ try {
 
         if ($AzAccountsModule) { 
             Initialize-AzModule -Endpoint $Endpoint
+            Enable-AzureRmAlias -Scope Process
         }
         elseif ($AzureRmProfileModule) {
             Initialize-AzureRMModule -Endpoint $Endpoint

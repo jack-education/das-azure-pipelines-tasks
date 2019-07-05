@@ -24,19 +24,19 @@
     Don't restore dependencies listed in dependency.json
 
     .EXAMPLE
-    Restore-TaskDependency -TaskRoot ./MyTask
+    ./Build-Task.ps1 -TaskRoot ./MyTask
 
     .EXAMPLE
-    Restore-TaskDependency -TaskRoot ./MyTask -Clean
+    ./Build-Task.ps1 -TaskRoot ./MyTask -Clean
 
     .EXAMPLE
-    Restore-TaskDependency -TaskRoot ./MyTask -Clean -Build
+    ./Build-Task.ps1 -TaskRoot ./MyTask -Clean -Build
 
     .EXAMPLE
-    Restore-TaskDependency -TaskRoot ./MyTask -Clean -Publish
+    ./Build-Task.ps1 -TaskRoot ./MyTask -Clean -Publish
 
     .EXAMPLE
-    Restore-TaskDependency -TaskRoot ./MyTask -Publish -SkipRestore
+    ./Build-Task.ps1 -TaskRoot ./MyTask -Publish -SkipRestore
 
     .NOTES
     Requirements:

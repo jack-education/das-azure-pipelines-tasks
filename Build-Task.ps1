@@ -3,7 +3,7 @@
     Install common task modules at build time
 
     .DESCRIPTION
-    Install common task modules at build time.
+    Install common task modules at build time
 
     .PARAMETER TaskRoot
     The root of the task to be built

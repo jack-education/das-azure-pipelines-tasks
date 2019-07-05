@@ -40,7 +40,6 @@ function New-ConfigurationTableEntry {
             Test-ConfigurationEntity -Configuration $Configuration -SchemaDefinitionPath $Schema.FullName
 
             $NewEntityParameters = @{
-
                 StorageAccount   = $StorageAccount
                 TableName        = $TableName
                 PartitionKey     = $EnvironmentName

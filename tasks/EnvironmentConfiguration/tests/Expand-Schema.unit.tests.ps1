@@ -6,7 +6,7 @@ InModuleScope "Handlers" {
             Set-MockEnvironment
             Add-DefaultMocks
         }
-    
+
         AfterAll {
             Clear-MockEnvironment
         }
@@ -24,15 +24,15 @@ InModuleScope "Handlers" {
             It "Should process each defined type succesfully" {
                 Expand-Schema -PropertyObject $SchemaObject.Properties
                 Assert-MockCalled -CommandName Get-SchemaProperty -Times 1
-                Assert-MockCalled -CommandName Get-SchemaProperty -ParameterFilter { $AsArray -eq $true} -Times 1
-                Assert-MockCalled -CommandName Get-SchemaProperty -ParameterFilter { $AsInt -eq $true} -Times 1
-                Assert-MockCalled -CommandName Get-SchemaProperty -ParameterFilter { $AsNumber -eq $true} -Times 1
-                Assert-MockCalled -CommandName Get-SchemaProperty -ParameterFilter { $AsBool -eq $true} -Times 1
+                Assert-MockCalled -CommandName Get-SchemaProperty -ParameterFilter { $AsArray -eq $true } -Times 1
+                Assert-MockCalled -CommandName Get-SchemaProperty -ParameterFilter { $AsInt -eq $true } -Times 1
+                Assert-MockCalled -CommandName Get-SchemaProperty -ParameterFilter { $AsNumber -eq $true } -Times 1
+                Assert-MockCalled -CommandName Get-SchemaProperty -ParameterFilter { $AsBool -eq $true } -Times 1
             }
 
             It "Should return a hashtable" {
                 Expand-Schema -PropertyObject $SchemaObject.Properties | Should BeOfType hashtable
             }
         }
-    }    
+    }
 }

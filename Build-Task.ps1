@@ -80,13 +80,13 @@ function Set-Version {
         $ManifestObject = Get-Content -Path $Manifest -Raw | ConvertFrom-Json
         $TaskObject = Get-Content -Path $Task -Raw | ConvertFrom-Json
 
-        $ManifestObject.Version = $Version.ToString()	
+        $ManifestObject.Version = $Version.ToString()
 
         $TaskObject.Version.Major = $Version.Major
         $TaskObject.Version.Minor = $Version.Minor
         $TaskObject.Version.Patch = $Version.Build
         Write-Verbose -Message "Version set to $NewVersion"
-    
+
         $ManifestObject | ConvertTo-Json -Depth 10 | Set-Content -Path $Manifest
         $TaskObject | ConvertTo-Json -Depth 10 | Set-Content -Path $Task
     }
@@ -178,7 +178,7 @@ try {
                 }
                 'Nuget' {
 
-                    $PackageSources = @(Get-PackageSource | Where-Object { $_.Name -like "*nuget*"})
+                    $PackageSources = @(Get-PackageSource | Where-Object { $_.Name -like "*nuget*" })
                     $PackageDestination = "$PackageTemp/$($Package.Name).$($Package.Version)"
 
                     $InstallPackageParameters = @{

@@ -1,20 +1,20 @@
 parameters:
-  name: ''
+  name: ""
 
 steps:
   - powershell: |
       ./Build-Task.ps1  -Build -TaskRoot $(System.DefaultWorkingDirectory)/tasks/${{ parameters.name }}
     displayName: "Build"
     failOnStderr: "false"
-    workingDirectory:  $(System.DefaultWorkingDirectory)
+    workingDirectory: $(System.DefaultWorkingDirectory)
   - powershell: |
       $(System.DefaultWorkingDirectory)/release/${{ parameters.name }}/tests/Start-UnitTest.ps1
     displayName: "Test"
     failOnStderr: "true"
-    workingDirectory:  $(System.DefaultWorkingDirectory)    
+    workingDirectory: $(System.DefaultWorkingDirectory)
   - task: PublishTestResults@2
     inputs:
-      testResultsFormat: 'NUnit'
+      testResultsFormat: "NUnit"
       testResultsFiles: $(System.DefaultWorkingDirectory)/release/${{ parameters.name }}/tests/Test-Pester.XML
     displayName: "Publish results"
     condition: succeededOrFailed()
@@ -36,4 +36,3 @@ steps:
     inputs:
       PathtoPublish: "$(build.artifactstagingdirectory)/publish"
     displayName: "Publish Artifact"
-

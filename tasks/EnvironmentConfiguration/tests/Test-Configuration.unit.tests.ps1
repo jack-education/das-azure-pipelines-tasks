@@ -6,7 +6,7 @@ InModuleScope "Handlers" {
             Set-MockEnvironment
             Add-DefaultMocks
         }
-    
+
         AfterAll {
             Clear-MockEnvironment
         }
@@ -28,5 +28,5 @@ InModuleScope "Handlers" {
                 { Test-ConfigurationEntity -Configuration $InvalidConfiguration -SchemaDefinitionPath $SchemaDefinition } | Should Throw
             }
         }
-    }    
+    }
 }

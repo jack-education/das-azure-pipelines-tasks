@@ -8,7 +8,7 @@ InModuleScope "Handlers" {
             Set-MockEnvironment
             Add-DefaultMocks
         }
-    
+
         AfterAll {
             Clear-MockEnvironment
         }
@@ -20,7 +20,7 @@ InModuleScope "Handlers" {
         $SchemaDefinition = "$PSScriptRoot/resource/SFA.DAS.Test.schema.json"
 
         Context "When passed an invalid schema definition" {
-            
+
             Mock Get-Content {
                 return "not a schema"
             }
@@ -38,5 +38,5 @@ InModuleScope "Handlers" {
                 Assert-MockCalled -CommandName Expand-Schema -Times 1
             }
         }
-    }    
+    }
 }

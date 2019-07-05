@@ -18,7 +18,7 @@ function New-TableEntity {
         elseif ($Global:IsAzureRm) {
             $Entity = New-Object -TypeName Microsoft.WindowsAzure.Storage.Table.DynamicTableEntity -ArgumentList $PartitionKey, $RowKey
         }
-        
+
         $Entity.Properties.Add("Data", $Configuration)
         if ($Global:IsAz) {
             $null = $StorageTable.CloudTable.Execute([Microsoft.Azure.Cosmos.Table.TableOperation]::Insert($Entity))

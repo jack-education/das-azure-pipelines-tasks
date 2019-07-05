@@ -40,11 +40,11 @@ function New-ConfigurationTableEntry {
             Test-ConfigurationEntity -Configuration $Configuration -SchemaDefinitionPath $Schema.FullName
 
             $NewEntityParameters = @{
-                StorageAccount   = $StorageAccount
-                TableName        = $TableName
-                PartitionKey     = $EnvironmentName
-                RowKey           = "$($Schema.BaseName.Replace('.schema',''))_$($Version)"
-                Configuration    = $Configuration
+                StorageAccount = $StorageAccount
+                TableName      = $TableName
+                PartitionKey   = $EnvironmentName
+                RowKey         = "$($Schema.BaseName.Replace('.schema',''))_$($Version)"
+                Configuration  = $Configuration
             }
             New-ConfigurationEntity @NewEntityParameters
 

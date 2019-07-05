@@ -1,15 +1,15 @@
 function New-ConfigurationEntity {
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [String]$StorageAccount,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [String]$TableName,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [String]$PartitionKey,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [String]$RowKey,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [String]$Configuration
     )
 
@@ -23,7 +23,7 @@ function New-ConfigurationEntity {
 
         Write-Verbose -Message "Searching for storage table $TableName"
         $StorageTable = Get-AzureStorageTable -Context $StorageContext -Name $TableName -ErrorAction SilentlyContinue
-        if (!$StorageTable){
+        if (!$StorageTable) {
             Write-Verbose -Message "Creating a new storage table $TableName"
             $StorageTable = New-AzureStorageTable -Context $StorageContext -Name $TableName
         }
@@ -38,9 +38,11 @@ function New-ConfigurationEntity {
             Write-Host "Creating a new entity [$RowKey]"
             New-TableEntity -Configuration $Configuration -PartitionKey $PartitionKey -RowKey $RowKey
         }
-    } catch {
+    }
+    catch {
         Write-Error -Message "$_" -ErrorAction Stop
-    } finally {
+    }
+    finally {
         Trace-VstsLeavingInvocation $MyInvocation
     }
 }

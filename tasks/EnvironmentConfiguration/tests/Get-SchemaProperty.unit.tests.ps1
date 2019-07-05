@@ -6,7 +6,7 @@ InModuleScope "Handlers" {
             Set-MockEnvironment
             Add-DefaultMocks
         }
-    
+
         AfterAll {
             Clear-MockEnvironment
         }
@@ -74,5 +74,5 @@ InModuleScope "Handlers" {
                 Assert-MockCalled -CommandName Get-VstsTaskVariable -Times 5
             }
         }
-    }    
+    }
 }

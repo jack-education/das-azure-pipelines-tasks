@@ -11,7 +11,7 @@ function Get-StorageAccountKey {
     try {
         Trace-VstsEnteringInvocation $MyInvocation
 
-        if ($Global:IsAz) { 
+        if ($Global:IsAz) {
             $StorageAccount = Get-AzureRmResource -Name $Name -ResourceType "Microsoft.Storage/storageAccounts" -ErrorAction Stop
         }
         elseif ($Global:IsAzureRm) {

@@ -19,7 +19,7 @@ function Get-TableEntity {
         }
         elseif ($Global:IsAzureRm) {
             $TableOperation = [Microsoft.WindowsAzure.Storage.Table.TableOperation]::Retrieve($PartitionKey, $RowKey)
-            
+
         }
         $Entity = $StorageTable.CloudTable.Execute($TableOperation, $null, $null)
 

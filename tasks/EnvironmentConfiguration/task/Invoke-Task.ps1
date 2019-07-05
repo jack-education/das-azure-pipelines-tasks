@@ -5,7 +5,7 @@ try {
 
     Import-Module -Name $PSScriptRoot/InitializationHelpers.psm1 -Force
     Initialize-TaskDependencies
-    
+
     if ($ENV:TF_BUILD) {
 
         # --- Inputs
@@ -28,7 +28,7 @@ try {
         $AzAccountsModule = @(Get-Module Az.Accounts -ListAvailable)[0]
         $AzureRmProfileModule = @(Get-Module AzureRm.Profile -ListAvailable)[0]
 
-        if ($AzAccountsModule) { 
+        if ($AzAccountsModule) {
             Initialize-AzModule -Endpoint $Endpoint
             Enable-AzureRmAlias -Scope Process
             $Global:IsAz = $true

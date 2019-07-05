@@ -16,7 +16,7 @@ function Test-ConfigurationEntity {
         $SchemaDefinition = Get-Content -Path $SchemaDefinitionPath -Raw
         $SchemaObject = [Newtonsoft.Json.Schema.JSchema, Newtonsoft.Json.Schema, Version = 2.0.0.0, Culture = neutral, PublicKeyToken = 30ad4fe6b2a6aeed]::Parse($SchemaDefinition)
 
-        $ConfigurationObject = [Newtonsoft.Json.Linq.JObject, Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed]::Parse($Configuration)
+        $ConfigurationObject = [Newtonsoft.Json.Linq.JObject, Newtonsoft.Json, Version = 9.0.0.0, Culture = neutral, PublicKeyToken = 30ad4fe6b2a6aeed]::Parse($Configuration)
         [Newtonsoft.Json.Schema.SchemaExtensions, Newtonsoft.Json.Schema, Version = 2.0.0.0, Culture = neutral, PublicKeyToken = 30ad4fe6b2a6aeed]::Validate($ConfigurationObject, $SchemaObject)
 
         Write-Host "Configuration validated $($Script:EmojiDictionary.GreenCheck)"

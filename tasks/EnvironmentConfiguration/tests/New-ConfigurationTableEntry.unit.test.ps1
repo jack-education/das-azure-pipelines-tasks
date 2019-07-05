@@ -5,7 +5,7 @@ InModuleScope "Handlers" {
         BeforeAll {
             Set-MockEnvironment
         }
-    
+
         AfterAll {
             Clear-MockEnvironment
         }
@@ -19,12 +19,12 @@ InModuleScope "Handlers" {
             return $null
         }
 
-        Mock New-ConfigurationEntity {}
+        Mock New-ConfigurationEntity { }
 
         $NewConfigurationTableEntryParameters = @{
-            SourcePath = "$PSScriptRoot/resource"
-            TargetFileName = "*.schema.json"
-            StorageAccount = "mock-storage-account"
+            SourcePath      = "$PSScriptRoot/resource"
+            TargetFileName  = "*.schema.json"
+            StorageAccount  = "mock-storage-account"
             EnvironmentName = "DEV"
         }
 

@@ -1,16 +1,16 @@
- 
+
 InModuleScope "Handlers" {
 
     Describe "New-ConfigurationEntity tests" {
         Import-Module Az
         $Global:IsAz = $true
         Enable-AzureRmAlias -Scope Process
-    
+
         BeforeAll {
             Set-MockEnvironment
             Add-DefaultMocks
         }
-    
+
         AfterAll {
             Clear-MockEnvironment
         }
@@ -20,7 +20,7 @@ InModuleScope "Handlers" {
                 ResourceGroupName = "mock-resource-group"
             }
         }
-        
+
         Mock Get-AzureRmStorageAccountKey {
             $MockKeysArray = @(
                 @{
@@ -40,7 +40,7 @@ InModuleScope "Handlers" {
         Mock New-AzureStorageTable {
             return @{ }
         }
-    
+
         Mock Get-AzureStorageTable {
             return @{ }
         }
@@ -48,11 +48,11 @@ InModuleScope "Handlers" {
         Mock Get-TableEntity {
             return @{ }
         }
-    
+
         Mock New-TableEntity {
             return @{ }
         }
-    
+
         Mock Set-TableEntity {
             return @{ }
         }
@@ -66,8 +66,8 @@ InModuleScope "Handlers" {
         $NewConfigurationEntityParameters = @{
             StorageAccount = $StorageAccount
             TableName      = $TableName
-            PartitionKey   = $PartitionKey 
-            RowKey         = $RowKey 
+            PartitionKey   = $PartitionKey
+            RowKey         = $RowKey
             Configuration  = $Configuration
         }
 
@@ -76,7 +76,7 @@ InModuleScope "Handlers" {
             Mock Get-AzureStorageTable {
                 return $null
             }
-            
+
             It "Should create a new table in the storage account" {
                 New-ConfigurationEntity @NewConfigurationEntityParameters
                 Assert-MockCalled -CommandName Get-AzureStorageTable -Times 1
@@ -93,20 +93,20 @@ InModuleScope "Handlers" {
         }
 
         Context "When all parameters are correct and and there is an existing entity in the configuration table" {
-            
+
             It "Should update an existing entity" {
                 { New-ConfigurationEntity @NewConfigurationEntityParameters } | Should Not Throw
                 Assert-MockCalled -CommandName Get-AzureRmResource -Times 1
                 Assert-MockCalled -CommandName Get-AzureRmStorageAccountKey -Times 1
                 Assert-MockCalled -CommandName Get-AzureStorageTable -Times 1
-    
+
                 Assert-MockCalled -CommandName Get-TableEntity -Times 1
                 Assert-MockCalled -CommandName Set-TableEntity -Times 1
             }
         }
 
         Context "When all parameters are correct and and there is not an existing entity in the configuration table" {
-            
+
             Mock Get-TableEntity {
                 return $null
             }
@@ -116,7 +116,7 @@ InModuleScope "Handlers" {
                 Assert-MockCalled -CommandName Get-AzureRmResource -Times 1
                 Assert-MockCalled -CommandName Get-AzureRmStorageAccountKey -Times 1
                 Assert-MockCalled -CommandName Get-AzureStorageTable -Times 1
-    
+
                 Assert-MockCalled -CommandName Get-TableEntity -Times 1
                 Assert-MockCalled -CommandName New-TableEntity -Times 1
             }

@@ -1,6 +1,6 @@
 <#
     .SYNOPSIS
-    Install common task modules at build time.
+    Install common task modules at build time
 
     .DESCRIPTION
     Install common task modules at build time.

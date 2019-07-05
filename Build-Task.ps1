@@ -152,7 +152,6 @@ try {
             [System.IO.FileInfo]$ResolvedPackagePath = "$($ReleaseTaskRoot)/$($Package.Path)"
             Write-Verbose -Message "ResolvedPackagePath: $ReleaseTaskRoot"
 
-
             switch ($Package.Type) {
                 'PSGallery' {
 

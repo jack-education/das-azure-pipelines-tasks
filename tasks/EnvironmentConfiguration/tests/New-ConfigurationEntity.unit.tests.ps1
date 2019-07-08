@@ -92,7 +92,7 @@ InModuleScope "Handlers" {
             }
         }
 
-        Context "When all parameters are correct and and there is an existing entity in the configuration table" {
+        Context "When all parameters are correct and there is an existing entity in the configuration table" {
 
             It "Should update an existing entity" {
                 { New-ConfigurationEntity @NewConfigurationEntityParameters } | Should Not Throw

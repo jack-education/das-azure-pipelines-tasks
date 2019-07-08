@@ -30,7 +30,7 @@ InModuleScope "Handlers" {
 
         Context "When passed a valid schema definition" {
 
-            It "Should sucesfully create a new configuration entity" {
+            It "Should successfully create a new configuration entity" {
                 { New-ConfigurationTableEntry @NewConfigurationTableEntryParameters } | Should Not Throw
                 Assert-MockCalled -CommandName Build-ConfigurationEntity -Times 1
                 Assert-MockCalled -CommandName Test-ConfigurationEntity -Times 1

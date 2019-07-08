@@ -146,7 +146,7 @@ try {
 
         foreach ($Package in $Config.Include | Sort-Object -Property Type) {
             Write-Verbose -Message "Processing package dependency $($Package.Name)"
-            Write-Verbose -Message "Clean package directories: $($NoResotre.IsPresent)"
+            Write-Verbose -Message "Clean package directories: $($Clean.IsPresent)"
 
             Write-Verbose -Message "Resolving package path"
             [System.IO.FileInfo]$ResolvedPackagePath = "$($ReleaseTaskRoot)/$($Package.Path)"

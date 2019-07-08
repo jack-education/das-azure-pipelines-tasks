@@ -17,7 +17,7 @@ InModuleScope "Handlers" {
 
         Context "When the configuration passed matches the schema definition" {
 
-            It "Should validate succesfully and not throw an exception" {
+            It "Should validate successfully and not throw an exception" {
                 { Test-ConfigurationEntity -Configuration $ValidConfiguration -SchemaDefinitionPath $SchemaDefinition } | Should Not Throw
             }
         }

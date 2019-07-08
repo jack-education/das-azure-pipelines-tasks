@@ -29,7 +29,7 @@ InModuleScope "Handlers" {
                     Permissions = "Full"
                 },
                 @{
-                    Key1        = "key2"
+                    KeyName     = "key2"
                     Value       = "bW9jayBzdG9yYWdlIGFjY291bnQga2V5IG5vdGhpbmcgdG8gc2VlIGhlcmUgMg=="
                     Permissions = "Full"
                 }

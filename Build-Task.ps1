@@ -154,7 +154,6 @@ try {
 
             switch ($Package.Type) {
                 'PSGallery' {
-
                     $PackageInstallDirectory = "$PackageTemp/$($Package.Name)"
 
                     $SaveModuleParameters = @{
@@ -177,7 +176,6 @@ try {
                     break
                 }
                 'Nuget' {
-
                     $PackageSources = @(Get-PackageSource | Where-Object { $_.Name -like "*nuget*" })
                     $PackageDestination = "$PackageTemp/$($Package.Name).$($Package.Version)"
 

@@ -227,7 +227,7 @@ try {
                         }
                     }
                 }
-                'Defaut' {
+                'Default' {
                     throw "Unknown package type: $($Package.Type). Supported package types are [GitHub, NuGet, PowerShellGallery]"
                 }
             }

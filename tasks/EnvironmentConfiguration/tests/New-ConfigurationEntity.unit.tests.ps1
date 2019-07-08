@@ -105,7 +105,7 @@ InModuleScope "Handlers" {
             }
         }
 
-        Context "When all parameters are correct and and there is not an existing entity in the configuration table" {
+        Context "When all parameters are correct and there is not an existing entity in the configuration table" {
 
             Mock Get-TableEntity {
                 return $null

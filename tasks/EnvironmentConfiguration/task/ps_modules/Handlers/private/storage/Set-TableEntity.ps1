@@ -23,7 +23,6 @@ function Set-TableEntity {
     }
     finally {
         Trace-VstsLeavingInvocation $MyInvocation
-
     }
 
 }

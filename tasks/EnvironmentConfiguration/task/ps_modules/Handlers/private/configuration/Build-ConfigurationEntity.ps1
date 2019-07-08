@@ -19,9 +19,7 @@ function Build-ConfigurationEntity {
         $Settings = [Newtonsoft.Json.JsonSerializerSettings, Newtonsoft.Json, Version = 9.0.0.0, Culture = neutral, PublicKeyToken = 30ad4fe6b2a6aeed]::new()
         $Settings.MaxDepth = 100
         $Schema = Expand-Schema -PropertyObject $SchemaObject.Properties
-        Write-Verbose -Message "$($Schema.GetType()) "
-        Write-Verbose -Message ($Schema | ConvertTo-Json -Depth 10)
-        $Configuration = ($Schema | ConvertTo-Json -Depth 10)
+        $Configuration = ($Schema | ConvertTo-Json -Depth 10 -Compress)
 
         Write-Output $Configuration
     }

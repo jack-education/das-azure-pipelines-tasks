@@ -1,0 +1,13 @@
+{
+  "EventsApi": {
+    "BaseUrl": "https://events.test.com",
+    "ClientToken": "xxxxxxxxxxlksmdflkm3lkmlkm"
+  },
+  "PaymentsEnabled": "true",
+  "PaymentsNumber": 1.0,
+  "PaymentsArray": [
+    "one",
+    "two",
+    "three"
+  ]
+}

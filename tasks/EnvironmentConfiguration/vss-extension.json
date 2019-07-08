@@ -1,0 +1,36 @@
+{
+  "manifestVersion": 1,
+  "id": "GenerateEnvironmentConfiguration",
+  "name": "Generate Environment Configuration",
+  "version": "3.0.253",
+  "publisher": "esfadevops",
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "description": "Generate and validate configuration from a given schema.",
+  "categories": [
+    "Azure Pipelines"
+  ],
+  "icons": {
+    "default": "images/icon.png"
+  },
+  "files": [
+    {
+      "path": "task"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "custom-build-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "task"
+      }
+    }
+  ]
+}

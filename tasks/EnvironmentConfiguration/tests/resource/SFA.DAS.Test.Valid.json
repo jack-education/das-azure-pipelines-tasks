@@ -11,5 +11,11 @@
     "two",
     "three"
   ],
-  "PaymentsBlankDefault": ""
+  "PaymentsBlankDefault": "",
+  "PaymentsObjectArray": [
+    {
+      "Enabled": true,
+      "aString": "string"
+    }
+  ]
 }

@@ -54,6 +54,27 @@
     "PaymentsBlankDefault": {
       "type": "string",
       "default": ""
+    },
+    "PaymentsObjectArray": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Enabled": {
+            "type": "boolean"
+          },
+          "aString": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "Enabled",
+          "aString"
+        ]
+      },
+      "minItems": 0,
+      "environmentVariable": "PaymentsObjectArray"
     }
   },
   "additionalProperties": false,

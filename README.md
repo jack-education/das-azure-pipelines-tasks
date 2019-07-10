@@ -14,7 +14,7 @@ If your task has external dependencies ensure that you include a `dependency.jso
 * PowerShell Gallery
 * NuGet
 
-Use [this file](tasks\EnvironmentConfiguration\dependency.json) as a reference when building your `dependency.json`.
+Use [this file](tasks/EnvironmentConfiguration/dependency.json) as a reference when building your `dependency.json`.
 
 ## Building locally
 
@@ -24,4 +24,4 @@ Use [this file](tasks\EnvironmentConfiguration\dependency.json) as a reference w
 
 ## Building in Azure DevOps
 
-Create an `azure-pipelines.yml` in the root of your task directory and reference `azure-pipelines.template.json` from the root of the repository. Use [this file](tasks\EnvironmentConfiguration\azure-pipelines.yml) as a reference.
+Create an `azure-pipelines.yml` in the root of your task directory and reference `azure-pipelines.template.json` from the root of the repository. Use [this file](tasks/EnvironmentConfiguration/azure-pipelines.yml) as a reference.

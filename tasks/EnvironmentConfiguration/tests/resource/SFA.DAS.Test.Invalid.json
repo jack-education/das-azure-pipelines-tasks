@@ -5,9 +5,12 @@
   },
   "PaymentsEnabled": "true",
   "PaymentsNumber": 1.0,
-  "PaymentsArray": [
-    "one",
-    "two",
-    "three"
+  "PaymentsArray": {
+    "one": "one",
+    "two": "two",
+    "three": "three"
+  },
+  "PaymentsObjectArray": [
+    "wrong"
   ]
 }

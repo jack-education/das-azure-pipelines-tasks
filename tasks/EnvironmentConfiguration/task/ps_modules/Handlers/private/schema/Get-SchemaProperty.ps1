@@ -44,7 +44,7 @@ function Get-SchemaProperty {
 
                 'AsArray' {
                     $ArrayString = Get-VstsTaskVariable -Name $VariableName
-                    $TaskVariable = $ArrayString | ConvertFrom-Json
+                    $TaskVariable = @($ArrayString | ConvertFrom-Json)
                     break
                 }
 

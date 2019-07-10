@@ -63,9 +63,6 @@ function Expand-Schema {
         }
 
         Write-Output $ProcessedProperties
-
-        Write-Host ($ProcessedProperties | ConvertTo-Json -Depth 10)
-
     }
     catch {
         Write-Error -Message "Failed to expand schema property [$Key] $_" -ErrorAction Stop

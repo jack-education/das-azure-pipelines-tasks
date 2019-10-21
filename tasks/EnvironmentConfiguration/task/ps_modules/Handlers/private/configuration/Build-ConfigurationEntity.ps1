@@ -21,6 +21,13 @@ function Build-ConfigurationEntity {
         $Schema = Expand-Schema -PropertyObject $SchemaObject.Properties
         $Configuration = ($Schema | ConvertTo-Json -Depth 10 -Compress)
 
+        if ($PSVersionTable.PSVersion.Major -lt 6) {
+            $Configuration = [Regex]::Replace($Configuration,
+                "\\u(?<Value>[a-zA-Z0-9]{4})", {
+                    param($m) ([char]([int]::Parse($m.Groups['Value'].Value,
+                                [System.Globalization.NumberStyles]::HexNumber))).ToString() } )
+        }
+
         Write-Output $Configuration
     }
     catch {

@@ -75,6 +75,10 @@
       },
       "minItems": 0,
       "environmentVariable": "PaymentsObjectArray"
+    },
+    "GoogleHeaderUrl": {
+      "type": "string",
+      "environmentVariable": "GoogleHeaderUrl"
     }
   },
   "additionalProperties": false,

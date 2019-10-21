@@ -14,19 +14,17 @@ function New-TableEntity {
 
         if ($Global:IsAz) {
             $Entity = [Microsoft.Azure.Cosmos.Table.DynamicTableEntity]::new($PartitionKey, $RowKey)
-        }
-        elseif ($Global:IsAzureRm) {
-            $Entity = New-Object -TypeName Microsoft.WindowsAzure.Storage.Table.DynamicTableEntity -ArgumentList $PartitionKey, $RowKey
-        }
-
-        $Entity.Properties.Add("Data", $Configuration)
-        if ($Global:IsAz) {
+            $Entity.Properties.Add("Data", $Configuration)
             $null = $StorageTable.CloudTable.Execute([Microsoft.Azure.Cosmos.Table.TableOperation]::Insert($Entity))
         }
         elseif ($Global:IsAzureRm) {
+            $Entity = [Microsoft.WindowsAzure.Storage.Table.DynamicTableEntity]::new($PartitionKey, $RowKey)
+            $Entity.Properties.Add("Data", $Configuration)
             $null = $StorageTable.CloudTable.Execute([Microsoft.WindowsAzure.Storage.Table.TableOperation]::Insert($Entity))
         }
-
+        else {
+            throw "Couldn't find Global Azure module setting $($MyInvocation.ScriptLineNumber) $($MyInvocation.ScriptName)"
+        }
     }
     catch {
         Write-Error -Message "$_" -ErrorAction Stop

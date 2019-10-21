@@ -17,5 +17,6 @@
       "Enabled": true,
       "aString": "string"
     }
-  ]
+  ],
+  "GoogleHeaderUrl": "'https://www.googletagmanager.com/gtm.js?id='wrappedinquotes'&gtm_auth=someauth&gtm_preview=env-7&gtm_cookies_win=x'"
 }

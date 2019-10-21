@@ -18,7 +18,7 @@ function Set-MockEnvironment {
     $ENV:PaymentsObjectArray = @"
     [{"Enabled": true, "aString": "string"}]
 "@
-
+    $ENV:GoogleHeaderUrl = "'https://www.googletagmanager.com/gtm.js?id='wrappedinquotes'&gtm_auth=someauth&gtm_preview=env-7&gtm_cookies_win=x'"
 }
 
 function Clear-MockEnvironment {
@@ -34,7 +34,8 @@ function Clear-MockEnvironment {
         "ENV:PaymentsEnabled",
         "ENV:PaymentsInt",
         "ENV:PaymentsNumber",
-        "ENV:PaymentsArray"
+        "ENV:PaymentsArray",
+        "ENV:GoogleHeaderUrl"
     )
 }
 

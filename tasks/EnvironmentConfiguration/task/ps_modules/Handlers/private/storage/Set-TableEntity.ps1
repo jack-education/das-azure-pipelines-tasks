@@ -16,6 +16,9 @@ function Set-TableEntity {
         elseif ($Global:IsAzureRm) {
             $null = $StorageTable.CloudTable.Execute([Microsoft.WindowsAzure.Storage.Table.TableOperation]::InsertOrReplace($Entity))
         }
+        else {
+            throw "Couldn't find Global Azure module setting $($MyInvocation.ScriptLineNumber) $($MyInvocation.ScriptName)"
+        }
 
     }
     catch {

@@ -6,6 +6,21 @@ try {
     Import-Module -Name $PSScriptRoot/InitializationHelpers.psm1 -Force
     Initialize-TaskDependencies
 
+    $AzAccountsModule = @(Get-Module Az.Accounts -ListAvailable)[0]
+    $AzureRmProfileModule = @(Get-Module AzureRm.Profile -ListAvailable)[0]
+    if ($AzAccountsModule) {
+        Enable-AzureRmAlias -Scope Process
+        $Global:IsAz = $true
+        Write-Host "Using Az Module"
+    }
+    elseif ($AzureRmProfileModule) {
+        $Global:IsAzureRm = $true
+        Write-Host "Using AzureRm Module"
+    }
+    else {
+        throw "No Azure powershell module found"
+    }
+
     if ($ENV:TF_BUILD) {
 
         # --- Inputs
@@ -25,20 +40,14 @@ try {
         # --- Init
         $Endpoint = Get-VstsEndpoint -Name $ServiceEndpointName -Require
 
-        $AzAccountsModule = @(Get-Module Az.Accounts -ListAvailable)[0]
-        $AzureRmProfileModule = @(Get-Module AzureRm.Profile -ListAvailable)[0]
-
-        if ($AzAccountsModule) {
+        if ($Global:IsAz) {
             Initialize-AzModule -Endpoint $Endpoint
-            Enable-AzureRmAlias -Scope Process
-            $Global:IsAz = $true
         }
-        elseif ($AzureRmProfileModule) {
+        elseif ($Global:IsAzureRm) {
             Initialize-AzureRMModule -Endpoint $Endpoint
-            $Global:IsAzureRm = $true
         }
         else {
-            throw "No Azure powershell module found"
+            throw "Couldn't find Global Azure module setting $($MyInvocation.ScriptLineNumber) $($MyInvocation.ScriptName)"
         }
     }
 

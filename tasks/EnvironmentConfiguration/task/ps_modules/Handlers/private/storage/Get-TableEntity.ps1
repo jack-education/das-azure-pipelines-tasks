@@ -19,7 +19,9 @@ function Get-TableEntity {
         }
         elseif ($Global:IsAzureRm) {
             $TableOperation = [Microsoft.WindowsAzure.Storage.Table.TableOperation]::Retrieve($PartitionKey, $RowKey)
-
+        }
+        else {
+            throw "Couldn't find Global Azure module setting $($MyInvocation.ScriptLineNumber) $($MyInvocation.ScriptName)"
         }
         $Entity = $StorageTable.CloudTable.Execute($TableOperation, $null, $null)
 

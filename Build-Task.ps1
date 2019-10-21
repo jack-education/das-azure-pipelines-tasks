@@ -206,15 +206,19 @@ try {
                     $RepositoryUrl = "https://github.com/$($Package.Name).git"
                     $RepositoryDestination = "$PackageTemp/$($Package.Name.Split("/")[1])"
                     Write-Host "[GitHub] Processing $($RepositoryUrl)"
-                    & git.exe clone $RepositoryUrl $RepositoryDestination | Out-Null
+                    & git.exe clone `
+                        --depth 1 `
+                        --no-checkout `
+                        $RepositoryUrl `
+                        $RepositoryDestination
 
                     if ($Package.Copy) {
                         $Package.Copy | ForEach-Object {
+                            & git.exe -C $RepositoryDestination checkout HEAD "$_/*"
                             Write-Host "[GitHub] Copying dependency $_ to $($Package.Path)"
                             Copy-Item -Path $RepositoryDestination/$_ -Destination $ResolvedPackagePath -Recurse -Force
                         }
                     }
-
                     break
                 }
                 'Local' {

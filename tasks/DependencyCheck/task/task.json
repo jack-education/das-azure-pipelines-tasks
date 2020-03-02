@@ -1,0 +1,64 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+  "id": "93ee1ebd-95c1-485e-bad4-5514e88f6c62",
+  "name": "DependencyCheck",
+  "friendlyName": "Dependency Check",
+  "description": "OWASP Dependency Check task for Azure Pipelines",
+  "helpMarkDown": "",
+  "category": "Utility",
+  "author": "esfadevops",
+  "version": {
+    "Major": 0,
+    "Minor": 1,
+    "Patch": 0
+  },
+  "instanceNameFormat": "Dependency Check",
+  "inputs": [
+    {
+      "name": "workspaceId",
+      "type": "string",
+      "label": "Workspace Id",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "A Log Analytics workspace Id"
+    },
+    {
+      "name": "sharedKey",
+      "type": "string",
+      "label": "Shared Key",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "A Log Analytics workspace shared key"
+    },
+    {
+      "name": "enableSelfHostedDatabase",
+      "type": "boolean",
+      "label": "Enable self hosted database",
+      "defaultValue": "false",
+      "helpMarkDown": "Select to enable self hosted database of vulnerabilities for this task.",
+      "required": true
+    },
+    {
+      "name": "databaseEndpoint",
+      "type": "string",
+      "label": "Database endpoint",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Database endpoint that has files odc.mv.db and jsrepository.json, eg. https://<storage account name>.blob.core.windows.net/<blob container name>",
+      "visibleRule": "enableSelfHostedDatabase = true"
+    },
+    {
+      "name": "scanPath",
+      "type": "string",
+      "label": "Scan path",
+      "defaultValue": "$(Agent.BuildDirectory)",
+      "required": true,
+      "helpMarkDown": "Path to scan for vulnerabiities"
+    }
+  ],
+  "execution": {
+    "Node10": {
+      "target": "index.js"
+    }
+  }
+}

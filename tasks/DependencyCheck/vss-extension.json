@@ -9,7 +9,7 @@
       "id": "Microsoft.VisualStudio.Services"
     }
   ],
-  "description": "Dependency Check task for Azure Pipelines",
+  "description": "Dependency Check task for Azure Pipelines to identify vulnerable third-party components",
   "categories": [
     "Azure Pipelines"
   ],

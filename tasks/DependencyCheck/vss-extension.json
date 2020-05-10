@@ -2,14 +2,14 @@
   "manifestVersion": 1,
   "id": "DependencyCheck",
   "name": "Dependency Check",
-  "version": "0.3.0",
+  "version": "Task version set in azure-pipelines.yml",
   "publisher": "esfadevops",
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
     }
   ],
-  "description": "OWASP Dependency Check task for Azure Pipelines",
+  "description": "Dependency Check task for Azure Pipelines",
   "categories": [
     "Azure Pipelines"
   ],

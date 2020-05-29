@@ -64,7 +64,7 @@ steps:
   inputs:
     connectedServiceName: 'Visual Studio Marketplace (VSTS)'
     fileType: vsix
-    vsixFile: '$(System.DefaultWorkingDirectory)/release/bin/esfadevops.DependencyCheck-*.vsix'
-    publisherId: esfadevops
+    vsixFile: '$(System.DefaultWorkingDirectory)/release/bin/jack-education.DependencyCheck-*.vsix'
+    publisherId: jack-education
     extensionId: 'DependencyCheck'
     updateTasksVersion: false

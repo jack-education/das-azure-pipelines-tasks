@@ -17,6 +17,8 @@ async function run(): Promise<void> {
     tl.debug(`Setting resource path to ${taskManifestPath}`);
     tl.setResourcePath(taskManifestPath);
 
+    const enableDatabaseMaintenance: boolean = tl.getBoolInput('enableDatabaseMaintenance', true);
+    const databaseSasUri: string = tl.getInput('databaseSasUri', true) as string;
     const workspaceId: string = tl.getInput('workspaceId', true) as string;
     const sharedKey: string = tl.getInput('sharedKey', true) as string;
     const enableSelfHostedDatabase: boolean = tl.getBoolInput('enableSelfHostedDatabase', true);

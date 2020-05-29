@@ -2,6 +2,8 @@ import tmrm = require('azure-pipelines-task-lib/mock-run');
 import path = require('path');
 
 const inputs = [
+  'enableDatabaseMaintenance',
+  'databaseSasUri',
   'workspaceId',
   'sharedKey',
   'enableSelfHostedDatabase',

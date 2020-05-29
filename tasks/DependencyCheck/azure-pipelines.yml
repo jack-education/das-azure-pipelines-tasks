@@ -14,7 +14,7 @@ workspace:
   clean: all
 
 pool:
-  name: 'DAS - Continuous Integration'
+  vmImage: 'windows-latest'
 
 steps:
 - task: UseGitVersion@5

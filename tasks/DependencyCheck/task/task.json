@@ -15,12 +15,30 @@
   "instanceNameFormat": "Dependency Check",
   "inputs": [
     {
+      "name": "enableDatabaseMaintenance",
+      "type": "boolean",
+      "label": "Enable maintenance of vulnerability files in storage account",
+      "defaultValue": "false",
+      "helpMarkDown": "Select to enable maintenance of vulnerability files in storage account.",
+      "required": true
+    },
+    {
+      "name": "databaseSasUri",
+      "type": "string",
+      "label": "Sas Uri for database of vulnerabilities",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Shared Access Signature for blob container of storage account that contains versioned vulnerability databases: files odc.mv.db and jsrepository.json",
+      "visibleRule": "enableDatabaseMaintenance = true"
+    },
+    {
       "name": "workspaceId",
       "type": "string",
       "label": "Workspace Id",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "A Log Analytics workspace Id"
+      "helpMarkDown": "A Log Analytics workspace Id",
+      "visibleRule": "enableDatabaseMaintenance = false"
     },
     {
       "name": "sharedKey",
@@ -28,15 +46,17 @@
       "label": "Shared Key",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "A Log Analytics workspace shared key"
+      "helpMarkDown": "A Log Analytics workspace shared key",
+      "visibleRule": "enableDatabaseMaintenance = false"
     },
     {
       "name": "enableSelfHostedDatabase",
       "type": "boolean",
       "label": "Enable self hosted database",
       "defaultValue": "false",
+      "required": true,
       "helpMarkDown": "Select to enable self hosted database of vulnerabilities for this task.",
-      "required": true
+      "visibleRule": "enableDatabaseMaintenance = false"
     },
     {
       "name": "databaseEndpoint",
@@ -53,7 +73,8 @@
       "label": "Scan path",
       "defaultValue": "$(Agent.BuildDirectory)",
       "required": true,
-      "helpMarkDown": "Path to scan for vulnerabiities"
+      "helpMarkDown": "Path to scan for vulnerabiities",
+      "visibleRule": "enableDatabaseMaintenance = false"
     },
     {
       "name": "excludedScanPathPatterns",
@@ -61,7 +82,8 @@
       "label": "Excluded scan path patterns",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Path patterns to exclude from scan for vulnerabiities"
+      "helpMarkDown": "Path patterns to exclude from scan for vulnerabiities",
+      "visibleRule": "enableDatabaseMaintenance = false"
     }
   ],
   "execution": {

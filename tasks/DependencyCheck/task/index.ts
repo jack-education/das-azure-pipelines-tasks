@@ -8,7 +8,7 @@ import tl = require('azure-pipelines-task-lib/task');
 import path = require('path');
 
 const taskVersion = path.basename(__dirname);
-tl.debug(`Task version set to ${taskVersion}`);
+tl.debug(`Task version is ${taskVersion}`);
 
 const logType = 'DependencyCheck';
 const csvFilePath = `${__dirname}/dependency-check-report.csv`;

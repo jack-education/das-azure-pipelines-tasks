@@ -27,7 +27,7 @@
       "type": "string",
       "label": "Sas Uri for database of vulnerabilities",
       "defaultValue": "",
-      "required": true,
+      "required": false,
       "helpMarkDown": "Shared Access Signature for blob container of storage account that contains versioned vulnerability databases: files odc.mv.db and jsrepository.json",
       "visibleRule": "enableDatabaseMaintenance = true"
     },

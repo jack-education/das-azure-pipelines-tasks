@@ -13,6 +13,9 @@ pr: none
 workspace:
   clean: all
 
+variables:
+  WRITE_STORAGEACCOUNT_CONTAINER_SASURI: $(WriteStorageAccountContainerSasUri)
+
 pool:
   vmImage: 'windows-latest'
 
@@ -65,7 +68,7 @@ steps:
    $Path = "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task"
    $Value = @"
    enableVulnerabilityFilesMaintenance=true
-   writeStorageAccountContainerSasUri=$($ENV:WriteStorageAccountContainerSasUri)
+   writeStorageAccountContainerSasUri=$($ENV:WRITE_STORAGEACCOUNT_CONTAINER_SASURI)
    workspaceId=placeholder
    sharedKey=placeholder
    enableSelfHostedVulnerabilityFiles=placeholder

@@ -65,7 +65,7 @@ steps:
    $Path = "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task"
    $Value = @"
    enableVulnerabilityFilesMaintenance=true
-   writeStorageAccountContainerSasUri=$($ENV:WRITE_STORAGE_ACCOUNT_CONTAINER_SAS_URI)
+   writeStorageAccountContainerSasUri=$ENV:WRITE_STORAGE_ACCOUNT_CONTAINER_SAS_URI
    workspaceId=placeholder
    sharedKey=placeholder
    enableSelfHostedVulnerabilityFiles=placeholder

@@ -21,13 +21,13 @@ async function run(): Promise<void> {
     tl.setResourcePath(taskManifestPath);
 
     const enableVulnerabilityFilesMaintenance: boolean = tl.getBoolInput('enableVulnerabilityFilesMaintenance', true);
-    const writeStorageAccountContainerSasUri: string = tl.getInput('writeStorageAccountContainerSasUri', true) as string;
-    const workspaceId: string = tl.getInput('workspaceId', true) as string;
-    const sharedKey: string = tl.getInput('sharedKey', true) as string;
-    const enableSelfHostedVulnerabilityFiles: boolean = tl.getBoolInput('enableSelfHostedVulnerabilityFiles', true);
-    const readStorageAccountContainerSasUri: string = tl.getInput('readStorageAccountContainerSasUri', true) as string;
-    const scanPath: string = tl.getInput('scanPath', true) as string;
-    const excludedScanPathPatterns: string = tl.getInput('excludedScanPathPatterns', true) as string;
+    const writeStorageAccountContainerSasUri: string = tl.getInput('writeStorageAccountContainerSasUri', false) as string;
+    const workspaceId: string = tl.getInput('workspaceId', false) as string;
+    const sharedKey: string = tl.getInput('sharedKey', false) as string;
+    const enableSelfHostedVulnerabilityFiles: boolean = tl.getBoolInput('enableSelfHostedVulnerabilityFiles', false);
+    const readStorageAccountContainerSasUri: string = tl.getInput('readStorageAccountContainerSasUri', false) as string;
+    const scanPath: string = tl.getInput('scanPath', false) as string;
+    const excludedScanPathPatterns: string = tl.getInput('excludedScanPathPatterns', false) as string;
 
     const scriptBasePath = `${__dirname}/dependency-check-cli/bin/dependency-check`;
     const scriptFullPath = process.platform === 'win32' ? `${scriptBasePath}.bat` : `${scriptBasePath}.sh`;

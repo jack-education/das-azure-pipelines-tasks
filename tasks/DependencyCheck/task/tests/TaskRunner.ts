@@ -2,12 +2,13 @@ import tmrm = require('azure-pipelines-task-lib/mock-run');
 import path = require('path');
 
 const inputs = [
-  'enableDatabaseMaintenance',
-  'databaseSasUri',
+  'enableVulnerabilityFilesMaintenance',
+  'writeStorageAccountContainerSasUri',
   'workspaceId',
   'sharedKey',
-  'enableSelfHostedDatabase',
+  'enableSelfHostedVulnerabilityFiles',
   'databaseEndpoint',
+  'readStorageAccountContainerSasUri',
   'scanPath',
   'excludedScanPathPatterns',
 ];

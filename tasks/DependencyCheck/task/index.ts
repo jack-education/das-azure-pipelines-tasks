@@ -1,7 +1,7 @@
 import csv from 'csvtojson';
 import { spawnSync } from 'child_process';
 import { LogAnalyticsClient, ILogAnalyticsClient } from './log-analytics';
-import { getVulnData, owaspCheck, cleanDependencyCheckData } from './utility';
+import { downloadVulnData, UploadVulnData, owaspCheck, cleanDependencyCheckData } from './utility';
 
 import emoji = require('node-emoji');
 import tl = require('azure-pipelines-task-lib/task');
@@ -20,14 +20,14 @@ async function run(): Promise<void> {
     tl.debug(`Setting resource path to ${taskManifestPath}`);
     tl.setResourcePath(taskManifestPath);
 
-    const enableDatabaseMaintenance: boolean = tl.getBoolInput('enableDatabaseMaintenance', true);
-    const databaseSasUri: string = tl.getInput('databaseSasUri', false) as string;
+    const enableVulnerabilityFilesMaintenance: boolean = tl.getBoolInput('enableVulnerabilityFilesMaintenance', true);
+    const writeStorageAccountContainerSasUri: string = tl.getInput('writeStorageAccountContainerSasUri', false) as string;
     const workspaceId: string = tl.getInput('workspaceId', true) as string;
     const sharedKey: string = tl.getInput('sharedKey', true) as string;
-    const enableSelfHostedDatabase: boolean = tl.getBoolInput('enableSelfHostedDatabase', true);
-    const databaseEndpoint: string = tl.getInput('databaseEndpoint', (enableSelfHostedDatabase)) as string;
+    const enableSelfHostedVulnerabilityFiles: boolean = tl.getBoolInput('enableSelfHostedVulnerabilityFiles', true);
+    const readStorageAccountContainerSasUri: string = tl.getInput('readStorageAccountContainerSasUri', false) as string;
     const scanPath: string = tl.getInput('scanPath', true) as string;
-    const excludedScanPathPatterns: string = tl.getInput('excludedScanPathPatterns', true) as string;
+    const excludedScanPathPatterns: string = tl.getInput('excludedScanPathPatterns', false) as string;
 
     const scriptBasePath = `${__dirname}/dependency-check-cli/bin/dependency-check`;
     const scriptFullPath = process.platform === 'win32' ? `${scriptBasePath}.bat` : `${scriptBasePath}.sh`;
@@ -38,7 +38,7 @@ async function run(): Promise<void> {
       spawnSync('chmod', ['+x', scriptFullPath])
     }
 
-    if (!enableDatabaseMaintenance) {
+    if (!enableVulnerabilityFilesMaintenance) {
       let repositoryName = (tl.getVariable('Build.Repository.Name'))?.split('/')[1];
       let branchName = tl.getVariable('Build.SourceBranchName');
       let buildName = tl.getVariable('Build.DefinitionName');
@@ -50,13 +50,12 @@ async function run(): Promise<void> {
         sharedKey,
       );
 
-      if (enableSelfHostedDatabase) {
-        const trimmedDatabaseEndpoint = databaseEndpoint.replace(/\/$/, '');
-        await getVulnData(trimmedDatabaseEndpoint, 'odc.mv.db', `${__dirname}/dependency-check-cli/data/odc.mv.db`);
-        await getVulnData(trimmedDatabaseEndpoint, 'jsrepository.json', `${__dirname}/dependency-check-cli/data/jsrepository.json`);
+      if (enableSelfHostedVulnerabilityFiles) {
+        await downloadVulnData(readStorageAccountContainerSasUri, `${__dirname}/dependency-check-cli/data/odc.mv.db`, taskVersion);
+        await downloadVulnData(readStorageAccountContainerSasUri, `${__dirname}/dependency-check-cli/data/jsrepository.json`, taskVersion);
       }
 
-      await owaspCheck(scriptFullPath, scanPath, excludedScanPathPatterns, csvFilePath, enableSelfHostedDatabase);
+      await owaspCheck(scriptFullPath, scanPath, excludedScanPathPatterns, csvFilePath, enableSelfHostedVulnerabilityFiles);
 
       const payload = await csv()
         .fromFile(csvFilePath)
@@ -86,7 +85,8 @@ async function run(): Promise<void> {
     }
     else {
       await owaspCheck(scriptFullPath, scriptFullPath, excludedScanPathPatterns, csvFilePath, false);
-      console.log('Database Maintenance!')
+      await UploadVulnData(writeStorageAccountContainerSasUri, `${__dirname}/dependency-check-cli/data/odc.mv.db`, taskVersion);
+      await UploadVulnData(writeStorageAccountContainerSasUri, `${__dirname}/dependency-check-cli/data/jsrepository.json`, taskVersion);
     }
 
     cleanDependencyCheckData();

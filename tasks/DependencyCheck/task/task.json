@@ -52,10 +52,10 @@
     {
       "name": "enableSelfHostedVulnerabilityFiles",
       "type": "boolean",
-      "label": "Enable self hosted database",
+      "label": "Enable self hosted vulnerability files",
       "defaultValue": "false",
       "required": true,
-      "helpMarkDown": "Select to enable self hosted database of vulnerabilities for this task.",
+      "helpMarkDown": "Select to enable self hosted vulnerability files.",
       "visibleRule": "enableVulnerabilityFilesMaintenance = false"
     },
     {
@@ -64,7 +64,7 @@
       "label": "Read Shared Access Signature Uri to download the database of vulnerabilities",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "Read Shared Access Signature Uri for blob container of storage account to download the versioned vulnerability databases: files odc.mv.db and jsrepository.json",
+      "helpMarkDown": "Read Shared Access Signature Uri for for blob container of storage account to download the versioned vulnerability files: odc.mv.db and jsrepository.json",
       "visibleRule": "enableSelfHostedVulnerabilityFiles = true"
     },
     {

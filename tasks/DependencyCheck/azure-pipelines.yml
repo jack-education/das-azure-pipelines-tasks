@@ -40,7 +40,7 @@ steps:
     verbose: false
     customCommand: 'install -g typescript'
 - powershell: |
-   Copy-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests/*" -Destination "$(System.DefaultWorkingDirectory)/temp-tests" -Recurse
+   Copy-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests" -Destination "$(System.DefaultWorkingDirectory)/temp-tests" -Recurse
    Remove-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests" -Recurse
   displayName: 'PowerShell Script: Copy tests folder contents to a temporary location and delete original test folder'
 - script: tsc
@@ -61,7 +61,7 @@ steps:
     rootFolder: '$(System.DefaultWorkingDirectory)/tasks/DependencyCheck'
     outputPath: '$(System.DefaultWorkingDirectory)/release/bin'
 - powershell: |
-   Copy-Item "$(System.DefaultWorkingDirectory)/temp-tests/*" -Destination "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests" -Recurse
+   Copy-Item "$(System.DefaultWorkingDirectory)/temp-tests" -Destination "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests" -Recurse
    Write-Output "Items at original tests folder:"
    Get-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests/*"
    $Path = "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task"

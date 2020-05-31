@@ -13,9 +13,6 @@ pr: none
 workspace:
   clean: all
 
-variables:
-  WRITE_STORAGEACCOUNT_CONTAINER_SASURI: $(WriteStorageAccountContainerSasUri)
-
 pool:
   vmImage: 'windows-latest'
 
@@ -68,7 +65,7 @@ steps:
    $Path = "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task"
    $Value = @"
    enableVulnerabilityFilesMaintenance=true
-   writeStorageAccountContainerSasUri=$($ENV:WRITE_STORAGEACCOUNT_CONTAINER_SASURI)
+   writeStorageAccountContainerSasUri=$($ENV:WRITE_STORAGE_ACCOUNT_CONTAINER_SAS_URI)
    workspaceId=placeholder
    sharedKey=placeholder
    enableSelfHostedVulnerabilityFiles=placeholder
@@ -80,6 +77,8 @@ steps:
    Write-Output "Content of .env file:"
    Get-Content -Path "$($Path)\.env"
    Rename-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task" "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/$($ENV:GITVERSION_MAJORMINORPATCH)"
+  env:
+    WRITE_STORAGE_ACCOUNT_CONTAINER_SAS_URI: $(WriteStorageAccountContainerSasUri)
   displayName: 'PowerShell Script: Restore tests folder, add a .env file for npm test, renamed task folder to GITVERSION_MAJORMINORPATCH'
 - task: Npm@1
   displayName: 'npm install'

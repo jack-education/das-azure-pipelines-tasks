@@ -7,7 +7,6 @@ const inputs = [
   'workspaceId',
   'sharedKey',
   'enableSelfHostedVulnerabilityFiles',
-  'databaseEndpoint',
   'readStorageAccountContainerSasUri',
   'scanPath',
   'excludedScanPathPatterns',

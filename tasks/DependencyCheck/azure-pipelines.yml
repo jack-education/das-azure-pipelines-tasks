@@ -108,12 +108,11 @@ steps:
   inputs:
     connection: OAuthGithub
     userRepository: 'SkillsFundingAgency/das-platform-automation'
-- task: PowerShell@2
-  displayName: 'PowerShell script: Remove old vulnerability files'
+- task: AzurePowerShell@4
+  displayName: 'Azure PowerShell script: Delete old vulnerability files'
   inputs:
-    targetType: filePath
-    filePath: '$(System.ArtifactsDirectory)/Remove-AzStorageBlobs.ps1'
-    arguments: '-StorageAccount $(StorageAccount) -SASToken $ENV:DELETE_STORAGE_ACCOUNT_CONTAINER_SAS_URI -StorageContainer $(StorageContainer) -FilesOlderThan $(FilesOlderThan) -DryRun $true'
-  env:
-    DELETE_STORAGE_ACCOUNT_CONTAINER_SAS_URI: $(DeleteStorageAccountContainerSasUri)
+    azureSubscription: 'Enterprise'
+    ScriptPath: '$(System.ArtifactsDirectory)/Remove-AzStorageBlobs.ps1'
+    ScriptArguments: '-StorageAccount $(StorageAccount) -SASToken $(DeleteStorageAccountContainerSasUri) -StorageContainer $(StorageContainer) -FilesOlderThan $(FilesOlderThan) -DryRun $true'
+    azurePowerShellVersion: LatestVersion
 

@@ -79,7 +79,7 @@ steps:
 - task: Npm@1
   displayName: 'npm install'
   inputs:
-    workingDir: '$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task'
+    workingDir: '$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/$(GITVERSION_MAJORMINORPATCH)'
     verbose: false
 - script: tsc
   workingDirectory: $(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task

@@ -13,7 +13,7 @@ export function cleanDependencyCheckData(): void {
     tl.checkPath(p, 'Dependency check cli data folder');
     tl.rmRF(p);
   } catch (e) {
-    tl.debug(`An error was caugh during cleanup ${e}`);
+    tl.debug(`An error was caught during cleanup ${e}`);
     tl.warning(`Data path did not exist. The task will attempt to create it at: ${p}`);
   }
 
@@ -32,7 +32,7 @@ export async function downloadVulnData(readStorageAccountContainerSasUri: string
   return new Promise<void>((resolve, reject) => {
     try {
     blockBlobClient.downloadToFile(filePath)
-      .then(() => console.log(`Successful upload of vulnerability data file ${blobName}`))
+      .then(() => console.log(`Successful download of vulnerability data file ${blobName}`))
       .catch((e) => reject(new Error(`Download of vulnerability data file ${blobName} failed with error code: ${e.message}`)))
       .finally(resolve)
     }

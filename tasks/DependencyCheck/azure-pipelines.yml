@@ -113,6 +113,5 @@ steps:
   inputs:
     azureSubscription: 'Enterprise'
     ScriptPath: '$(System.ArtifactsDirectory)/Remove-AzStorageBlobs.ps1'
-    ScriptArguments: '-StorageAccount $(StorageAccount) -SASToken $(DeleteStorageAccountContainerSasUri) -StorageContainer $(StorageContainer) -FilesOlderThan $(FilesOlderThan) -DryRun $true'
+    ScriptArguments: '-StorageAccount $(StorageAccount) -SASToken $(DeleteStorageAccountContainerSasToken) -StorageContainer $(StorageContainer) -FilesOlderThan $(FilesOlderThan) -DryRun $false'
     azurePowerShellVersion: LatestVersion
-

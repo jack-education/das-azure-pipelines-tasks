@@ -62,6 +62,8 @@ steps:
     outputPath: '$(System.DefaultWorkingDirectory)/release/bin'
 - powershell: |
    Copy-Item "$(System.DefaultWorkingDirectory)/temp-tests/*" -Destination "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests" -Recurse
+   Write-Output "Items at original tests folder:"
+   Get-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests/*"
    $Path = "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task"
    $Value = @"
    enableVulnerabilityFilesMaintenance=true

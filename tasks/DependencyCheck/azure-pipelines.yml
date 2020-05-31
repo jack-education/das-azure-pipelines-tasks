@@ -39,10 +39,10 @@ steps:
     command: custom
     verbose: false
     customCommand: 'install -g typescript'
-- powershell: Copy-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests/*" -Destination "$(System.DefaultWorkingDirectory)/temp-tests" -Recurse
-  displayName: 'PowerShell Script: Copy tests folder contents to a temporary location'
-- powershell: Remove-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests" -Recurse
-  displayName: 'PowerShell Script: Remove tests folder'
+- powershell: |
+   Copy-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests/*" -Destination "$(System.DefaultWorkingDirectory)/temp-tests" -Recurse
+   Remove-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests" -Recurse
+  displayName: 'PowerShell Script: Copy tests folder contents to a temporary location and delete original test folder'
 - script: tsc
   workingDirectory: $(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task
   displayName: 'Command Line Script: tsc'
@@ -61,7 +61,7 @@ steps:
     rootFolder: '$(System.DefaultWorkingDirectory)/tasks/DependencyCheck'
     outputPath: '$(System.DefaultWorkingDirectory)/release/bin'
 - powershell: |
-   Copy-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests/*" -Destination "$(System.DefaultWorkingDirectory)/temp-tests" -Recurse
+   Copy-Item "$(System.DefaultWorkingDirectory)/temp-tests/*" -Destination "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests" -Recurse
    $Path = "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task"
    $Value = @"
    enableVulnerabilityFilesMaintenance=true

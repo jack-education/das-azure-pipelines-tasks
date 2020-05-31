@@ -82,13 +82,13 @@ steps:
     workingDir: '$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/$(GITVERSION.MAJORMINORPATCH)'
     verbose: false
 - script: tsc
-  workingDirectory: $(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task
+  workingDirectory: $(System.DefaultWorkingDirectory)/tasks/DependencyCheck/$(GITVERSION.MAJORMINORPATCH)
   displayName: 'Command Line Script: tsc'
 - task: Npm@1
   displayName: 'npm test'
   inputs:
     command: custom
-    workingDir: '$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task'
+    workingDir: '$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/$(GITVERSION.MAJORMINORPATCH)'
     verbose: false
     customCommand: 'test'
 - task: ms-devlabs.vsts-developer-tools-build-tasks.publish-extension-build-task.PublishAzureDevOpsExtension@2

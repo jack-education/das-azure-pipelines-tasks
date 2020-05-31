@@ -62,8 +62,6 @@ steps:
     outputPath: '$(System.DefaultWorkingDirectory)/release/bin'
 - powershell: |
    Copy-Item "$(System.DefaultWorkingDirectory)/temp-tests" -Destination "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests" -Recurse
-   Write-Output "Items at original tests folder:"
-   Get-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests/*"
    $Path = "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task"
    $Value = @"
    enableVulnerabilityFilesMaintenance=true
@@ -76,6 +74,8 @@ steps:
    excludedScanPathPatterns=placeholder
    "@
    New-Item -Path $Path -Name ".env" -Value $Value
+   Write-Output "Content of .env file:"
+   Get-Content -Path "$($Path)\.env"
    Rename-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task" "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/$($ENV:GITVERSION_MAJORMINORPATCH)"
   displayName: 'PowerShell Script: Restore tests folder, add a .env file for npm test, renamed task folder to GITVERSION_MAJORMINORPATCH'
 - task: Npm@1

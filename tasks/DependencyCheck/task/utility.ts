@@ -32,7 +32,7 @@ export async function downloadVulnData(readStorageAccountContainerSasUri: string
   return new Promise<void>((resolve, reject) => {
     try {
     blockBlobClient.downloadToFile(filePath)
-      .then((BlockBlobDownloadResponse) => console.log('Successful request id: ' + BlockBlobDownloadResponse.requestId))
+      .then(() => console.log(`Successful upload of vulnerability data file ${blobName}`))
       .catch((e) => reject(new Error(`Download of vulnerability data file ${blobName} failed with error code: ${e.message}`)))
       .finally(resolve)
     }
@@ -54,8 +54,8 @@ export async function UploadVulnData(writeStorageAccountContainerSasUri: string,
   return new Promise<void>((resolve, reject) => {
     try {
       blockBlobClient.upload(file, Buffer.byteLength(file))
-        .then((BlockBlobUploadResponse) => console.log('Successful request id: ' + BlockBlobUploadResponse.requestId))
-        .catch((e) => reject(new Error(`Upload of vulnerability data file ${blobName} failed with error code: ${e.message}`)))
+        .then(() => console.log(`Successful upload of vulnerability data file ${blobName}`))
+        .catch((e) => reject(new Error(`Failed upload of vulnerability data file ${blobName} with error code: ${e.message}`)))
         .finally(resolve)
     }
     catch (e) {

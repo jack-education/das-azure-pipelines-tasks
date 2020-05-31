@@ -74,8 +74,6 @@ steps:
    excludedScanPathPatterns=placeholder
    "@
    New-Item -Path $Path -Name ".env" -Value $Value
-   Write-Output "Content of .env file:"
-   Get-Content -Path "$($Path)\.env"
    Rename-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task" "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/$($ENV:GITVERSION_MAJORMINORPATCH)"
   env:
     WRITE_STORAGE_ACCOUNT_CONTAINER_SAS_URI: $(WriteStorageAccountContainerSasUri)
@@ -105,3 +103,17 @@ steps:
     publisherId: jack-education
     extensionId: 'DependencyCheck'
     updateTasksVersion: false
+- task: DownloadGitHubRelease@0
+  displayName: 'Download GitHub Release'
+  inputs:
+    connection: OAuthGithub
+    userRepository: 'SkillsFundingAgency/das-platform-automation'
+- task: PowerShell@2
+  displayName: 'PowerShell script: Remove old vulnerability files'
+  inputs:
+    targetType: filePath
+    filePath: '$(System.ArtifactsDirectory)/Remove-AzStorageBlobs.ps1'
+    arguments: '-StorageAccount $(StorageAccount) -SASToken $ENV:DELETE_STORAGE_ACCOUNT_CONTAINER_SAS_URI -StorageContainer $(StorageContainer) -FilesOlderThan $(FilesOlderThan) -DryRun $true'
+  env:
+    DELETE_STORAGE_ACCOUNT_CONTAINER_SAS_URI: $(DeleteStorageAccountContainerSasUri)
+

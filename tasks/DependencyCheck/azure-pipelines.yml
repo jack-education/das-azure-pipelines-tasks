@@ -60,6 +60,20 @@ steps:
   inputs:
     rootFolder: '$(System.DefaultWorkingDirectory)/tasks/DependencyCheck'
     outputPath: '$(System.DefaultWorkingDirectory)/release/bin'
+- task: DownloadGitHubRelease@0
+  displayName: 'Download GitHub Release'
+  inputs:
+    connection: OAuthGithub
+    userRepository: 'SkillsFundingAgency/das-platform-automation'
+    defaultVersionType: specificTag
+    version: 3.0.0
+- task: AzurePowerShell@4
+  displayName: 'Azure PowerShell script: $(System.ArtifactsDirectory)/New-StorageAccountSASToken.ps1'
+  inputs:
+    azureSubscription: Enterprise
+    ScriptPath: '$(System.ArtifactsDirectory)/New-StorageAccountSASToken.ps1'
+    ScriptArguments: '-ResourceGroup "$(SharedEnvResourceGroup)" -StorageAccount "$(SharedStorageAccountName)" -Service "$(StorageAccountService)" -ResourceType "$(StorageAccountResourceType)" -Permissions "$(StorageAccountPermissions)" -ExpiryInMinutes "$(SasUriExpiryInMinutes)" -OutputVariable "WriteStorageAccountContainerSasUri"'
+    azurePowerShellVersion: LatestVersion
 - powershell: |
    Copy-Item "$(System.DefaultWorkingDirectory)/temp-tests" -Destination "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task/tests" -Recurse
    $Path = "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task"
@@ -103,15 +117,3 @@ steps:
     publisherId: jack-education
     extensionId: 'DependencyCheck'
     updateTasksVersion: false
-- task: DownloadGitHubRelease@0
-  displayName: 'Download GitHub Release'
-  inputs:
-    connection: OAuthGithub
-    userRepository: 'SkillsFundingAgency/das-platform-automation'
-- task: AzurePowerShell@4
-  displayName: 'Azure PowerShell script: Delete old vulnerability files'
-  inputs:
-    azureSubscription: 'Enterprise'
-    ScriptPath: '$(System.ArtifactsDirectory)/Remove-AzStorageBlobs.ps1'
-    ScriptArguments: '-StorageAccount $(StorageAccount) -SASToken $(DeleteStorageAccountContainerSasToken) -StorageContainer $(StorageContainer) -FilesOlderThan $(FilesOlderThan) -DryRun $false'
-    azurePowerShellVersion: LatestVersion

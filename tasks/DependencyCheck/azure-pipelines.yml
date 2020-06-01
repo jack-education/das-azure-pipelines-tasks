@@ -79,7 +79,7 @@ steps:
    $Path = "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task"
    $Value = @"
    enableVulnerabilityFilesMaintenance=true
-   writeStorageAccountContainerSasUri=$ENV:WRITE_STORAGE_ACCOUNT_CONTAINER_SAS_URI
+   writeStorageAccountContainerSasUri=https://$($ENV:SharedStorageAccountName).$($ENV:StorageAccountResourceType).core.windows.net/$($ENV:StorageAccountContainerName)$($ENV:WRITE_STORAGE_ACCOUNT_CONTAINER_SAS_URI)
    workspaceId=placeholder
    sharedKey=placeholder
    enableSelfHostedVulnerabilityFiles=placeholder
@@ -89,6 +89,7 @@ steps:
    "@
    New-Item -Path $Path -Name ".env" -Value $Value
    Rename-Item "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/task" "$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/$($ENV:GITVERSION_MAJORMINORPATCH)"
+   Get-Content -Path "$($Path)/.env"
   env:
     WRITE_STORAGE_ACCOUNT_CONTAINER_SAS_URI: $(WriteStorageAccountContainerSasUri)
   displayName: 'PowerShell Script: Restore tests folder, add a .env file for npm test, renamed task folder to GITVERSION_MAJORMINORPATCH'
@@ -101,7 +102,7 @@ steps:
   workingDirectory: $(System.DefaultWorkingDirectory)/tasks/DependencyCheck/$(GITVERSION.MAJORMINORPATCH)
   displayName: 'Command Line Script: tsc'
 - task: Npm@1
-  displayName: 'npm test'
+  displayName: 'npm test to create the new versioned vulnerability files on the storage account'
   inputs:
     command: custom
     workingDir: '$(System.DefaultWorkingDirectory)/tasks/DependencyCheck/$(GITVERSION.MAJORMINORPATCH)'
